@@ -26,7 +26,7 @@ export default {
 .title {
   font-size: 15rem;
   text-transform: uppercase;
-  line-height: .7em;
+  line-height: .6em;
 }
 
 .subtitle {
