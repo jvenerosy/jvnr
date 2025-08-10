@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JVNR - Site Personnel
 
-## Getting Started
+Site personnel professionnel présentant l'expertise de JVNR en création de solutions digitales, avec plus de 15 ans d'expérience.
 
-First, run the development server:
+## 🎯 Aperçu
+
+Site minimaliste en page unique (single page) mettant en avant :
+- **Expertise** : 15+ années d'expérience en création de solutions digitales
+- **Services** : Développement, SEO, Performance, Accessibilité
+- **Design** : Épuré noir et blanc avec typographie Inter
+- **Contact** : Email et LinkedIn
+
+## 🚀 Technologies
+
+- **Framework** : Next.js 15 (App Router)
+- **Styling** : Tailwind CSS v4
+- **Typographie** : Inter (Google Fonts)
+- **Déploiement** : Génération statique (SSG)
+- **Optimisations** : SEO, Performance, Accessibilité
+
+## 📱 Fonctionnalités
+
+### Design
+- Design épuré noir et blanc
+- Typographie Inter Black pour le logo
+- Dégradés subtils sur les titres
+- Navigation fluide entre sections
+- Responsive design (mobile/desktop)
+
+### Sections
+1. **Hero** - Logo JVNR et présentation
+2. **À propos** - Expertise et statistiques
+3. **Services** - 4 domaines de compétence
+4. **Contact** - Email et LinkedIn
+
+### Optimisations
+- ✅ SEO optimisé (métadonnées complètes)
+- ✅ Génération statique (SSG)
+- ✅ Performance web optimisée
+- ✅ Accessibilité (WCAG)
+- ✅ Navigation clavier
+- ✅ Responsive design
+
+## 🛠️ Installation
 
 ```bash
+# Cloner le projet
+git clone [url-du-repo]
+cd jvnr-site
+
+# Installer les dépendances
+npm install
+
+# Lancer en développement
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Générer la version de production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📂 Structure du projet
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+jvnr-site/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx      # Layout principal avec métadonnées SEO
+│   │   ├── page.tsx        # Page d'accueil
+│   │   └── globals.css     # Styles globaux et variables CSS
+│   └── components/
+│       ├── Header.tsx      # Navigation fixe
+│       ├── Hero.tsx        # Section hero avec logo
+│       ├── About.tsx       # Section à propos
+│       ├── Services.tsx    # Section services
+│       ├── Contact.tsx     # Section contact
+│       └── Footer.tsx      # Footer
+├── public/                 # Assets statiques
+├── out/                    # Build de production (après npm run build)
+└── next.config.ts          # Configuration Next.js
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎨 Design System
 
-## Learn More
+### Couleurs
+- **Fond** : Blanc (#FFFFFF)
+- **Texte** : Noir (#000000)
+- **Dégradés** : Noir vers gris pour les titres
 
-To learn more about Next.js, take a look at the following resources:
+### Typographie
+- **Logo** : Inter Black (900)
+- **Titres** : Inter Bold (700) avec dégradés
+- **Corps** : Inter Regular (400)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Composants
+- Navigation fluide avec scroll smooth
+- Boutons avec transitions hover
+- Cards avec bordures subtiles
+- Indicateurs visuels (puces, icônes)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📊 Performance
 
-## Deploy on Vercel
+- **First Load JS** : ~103 kB
+- **Page principale** : 2.83 kB
+- **Génération** : Statique (SSG)
+- **Optimisations** : Images, CSS, JavaScript
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌐 Déploiement
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Le site est configuré pour la génération statique et peut être déployé sur :
+- Vercel
+- Netlify
+- GitHub Pages
+- Tout hébergeur de fichiers statiques
+
+Les fichiers de production se trouvent dans le dossier `out/` après `npm run build`.
+
+## 📧 Contact
+
+- **Email** : contact@jvnr.com
+- **LinkedIn** : linkedin.com/in/jvnr
+
+---
+
+*Développé avec ❤️ en France - Next.js & Tailwind CSS*

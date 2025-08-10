@@ -1,0 +1,13 @@
+{
+  "name": "JVNR - Développeur Web Expert",
+  "short_name": "JVNR",
+  "description": "Développeur web expert avec plus de 15 ans d'expérience. Spécialisé en SEO, performance web et accessibilité.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity"],
+  "lang": "fr",
+  "icons": []
+}

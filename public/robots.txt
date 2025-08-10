@@ -1,0 +1,39 @@
+# Robots.txt pour JVNR - Développeur Web Expert
+# https://jvnr.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://jvnr.com/sitemap.xml
+
+# Disallow crawling of admin or private areas (if any in the future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Host directive (optional, for primary domain)
+Host: https://jvnr.com
