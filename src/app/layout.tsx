@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience | SEO & Performance",
     template: "%s | JVNR - Créateur de solutions digitales performantes"
   },
-  description: "Développeur web expert avec plus de 15 ans d'expérience. Spécialisé en création de sites performants, optimisation SEO, accessibilité web et développement React/Next.js. Basé en France, services personnalisés pour entreprises et startups.",
+  description: "Créateur de solutions digitales avec plus de 15 ans d'expérience. Spécialisé en création de sites performants, optimisation SEO, accessibilité web et développement React/Next.js. Basé en France, services personnalisés pour entreprises et startups.",
   keywords: [
     "créateur de solutions digitales performantes",
     "développeur freelance France",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "Progressive Web App",
     "e-commerce personnalisé"
   ],
-  authors: [{ name: "JVNR", url: "https://jvnr.com" }],
+  authors: [{ name: "JVNR", url: "https://jvnr.fr" }],
   creator: "JVNR",
   publisher: "JVNR",
   formatDetection: {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://jvnr.com'),
+  metadataBase: new URL('https://jvnr.fr'),
   alternates: {
     canonical: '/',
     languages: {
@@ -49,10 +49,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience",
-    description: "Développeur web expert avec plus de 15 ans d'expérience. Création de sites performants, optimisation SEO et développement React/Next.js sur mesure.",
+    description: "Créateur de solutions digitales avec plus de 15 ans d'expérience. Création de sites performants, optimisation SEO et développement React/Next.js sur mesure.",
     type: "website",
     locale: "fr_FR",
-    url: "https://jvnr.com",
+    url: "https://jvnr.fr",
     siteName: "JVNR - Créateur de solutions digitales performantes",
     images: [
       {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience",
-    description: "Développeur web expert spécialisé en SEO, performance et accessibilité. Plus de 15 ans d'expérience en développement React/Next.js.",
+    description: "Créateur de solutions digitales spécialisé en SEO, performance et accessibilité. Plus de 15 ans d'expérience en développement React/Next.js.",
     images: ["/twitter-image.jpg"],
     creator: "@jvnr_dev",
   },

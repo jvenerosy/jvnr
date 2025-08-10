@@ -116,8 +116,8 @@ Les fichiers de production se trouvent dans le dossier `out/` après `npm run bu
 
 ## 📧 Contact
 
-- **Email** : contact@jvnr.com
-- **LinkedIn** : linkedin.com/in/jvnr
+- **Email** : contact@jvnr.fr
+- **LinkedIn** : linkedin.com/in/julien-venerosy/
 
 ---
 

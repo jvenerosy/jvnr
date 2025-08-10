@@ -6,11 +6,11 @@ const StructuredData = () => {
     "@type": "Person",
     "name": "JVNR",
     "jobTitle": "Créateur de solutions digitales performantes",
-    "description": "Développeur web expert avec plus de 15 ans d'expérience, spécialisé en SEO, performance web et accessibilité",
-    "url": "https://jvnr.com",
-    "email": "contact@jvnr.com",
+    "description": "Créateur de solutions digitales avec plus de 15 ans d'expérience, spécialisé en SEO, performance web et accessibilité",
+    "url": "https://jvnr.fr",
+    "email": "contact@jvnr.fr",
     "sameAs": [
-      "https://linkedin.com/in/jvnr"
+      "https://www.linkedin.com/in/julien-venerosy/"
     ],
     "knowsAbout": [
       "Développement Web",
@@ -46,8 +46,8 @@ const StructuredData = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "JVNR",
-    "url": "https://jvnr.com",
-    "logo": "https://jvnr.com/logo.png",
+    "url": "https://jvnr.fr",
+    "logo": "https://jvnr.fr/logo.png",
     "description": "Services de création de solutions digitales performantes, optimisation SEO et amélioration des performances",
     "founder": {
       "@type": "Person",
@@ -55,7 +55,7 @@ const StructuredData = () => {
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "contact@jvnr.com",
+      "email": "contact@jvnr.fr",
       "contactType": "customer service",
       "availableLanguage": "French"
     },
@@ -93,7 +93,7 @@ const StructuredData = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Développement Web",
-            "description": "Création de sites web modernes et performants avec React, Next.js et TypeScript"
+            "description": "Création de sites modernes et performants avec React, Next.js et TypeScript"
           }
         },
         {
@@ -109,7 +109,7 @@ const StructuredData = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Performance Web",
-            "description": "Optimisation de la vitesse et des performances des sites web"
+            "description": "Optimisation de la vitesse et des performances des sites"
           }
         },
         {
@@ -117,7 +117,7 @@ const StructuredData = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Accessibilité Web",
-            "description": "Création de sites web accessibles conformes aux standards WCAG"
+            "description": "Création de sites accessibles conformes aux standards WCAG"
           }
         }
       ]
@@ -128,7 +128,7 @@ const StructuredData = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "JVNR - Créateur de solutions digitales performantes",
-    "url": "https://jvnr.com",
+    "url": "https://jvnr.fr",
     "description": "Site officiel de JVNR, créateur de solutions digitales performantes avec plus de 15 ans d'expérience",
     "inLanguage": "fr-FR",
     "author": {
@@ -137,7 +137,7 @@ const StructuredData = () => {
     },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://jvnr.com/search?q={search_term_string}",
+      "target": "https://jvnr.fr/search?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
@@ -150,25 +150,25 @@ const StructuredData = () => {
         "@type": "ListItem",
         "position": 1,
         "name": "Accueil",
-        "item": "https://jvnr.com"
+        "item": "https://jvnr.fr"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "À propos",
-        "item": "https://jvnr.com#about"
+        "item": "https://jvnr.fr#about"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Services",
-        "item": "https://jvnr.com#services"
+        "item": "https://jvnr.fr#services"
       },
       {
         "@type": "ListItem",
         "position": 4,
         "name": "Contact",
-        "item": "https://jvnr.com#contact"
+        "item": "https://jvnr.fr#contact"
       }
     ]
   };

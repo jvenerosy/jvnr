@@ -1,6 +1,6 @@
 'use client';
 
-import { Mail, Linkedin, CheckCircle, ArrowRight } from 'lucide-react';
+import { Mail, Linkedin, MessageCircle, Calculator, Users, ArrowRight } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -43,11 +43,11 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-black">Email</h4>
                   <a
-                    href="mailto:contact@jvnr.com"
+                    href="mailto:contact@jvnr.fr"
                     className="text-gray-600 hover:text-black transition-colors"
-                    aria-label="Envoyer un email à contact@jvnr.com"
+                    aria-label="Envoyer un email à contact@jvnr.fr"
                   >
-                    contact@jvnr.com
+                    contact@jvnr.fr
                   </a>
                 </div>
               </div>
@@ -60,13 +60,13 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-black">LinkedIn</h4>
                   <a
-                    href="https://linkedin.com/in/jvnr"
+                    href="https://www.linkedin.com/in/julien-venerosy/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-black transition-colors"
                     aria-label="Voir le profil LinkedIn de JVNR"
                   >
-                    linkedin.com/in/jvnr
+                    linkedin.com/in/julien-venerosy/
                   </a>
                 </div>
               </div>
@@ -86,22 +86,22 @@ const Contact = () => {
 
             <div className="space-y-4">
               <div className="flex items-center text-sm text-gray-600">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                <MessageCircle className="w-4 h-4 text-blue-500 mr-3 flex-shrink-0" />
                 Consultation gratuite
               </div>
               <div className="flex items-center text-sm text-gray-600">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                <Calculator className="w-4 h-4 text-purple-500 mr-3 flex-shrink-0" />
                 Devis personnalisé
               </div>
               <div className="flex items-center text-sm text-gray-600">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                <Users className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
                 Accompagnement complet
               </div>
             </div>
 
             <div className="mt-8 pt-6 border-t border-gray-200">
               <a
-                href="mailto:contact@jvnr.com?subject=Demande de projet&body=Bonjour,%0D%0A%0D%0AJe souhaiterais discuter d'un projet avec vous.%0D%0A%0D%0ACordialement"
+                href="mailto:contact@jvnr.fr?subject=Demande de projet&body=Bonjour,%0D%0A%0D%0AJe souhaiterais discuter d'un projet avec vous.%0D%0A%0D%0ACordialement"
                 className="w-full bg-black text-white py-4 px-6 text-center font-medium hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 inline-flex items-center justify-center"
                 aria-label="Envoyer un email pour démarrer un projet"
               >

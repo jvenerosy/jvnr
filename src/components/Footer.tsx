@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-gray-400 text-sm">
-            © {currentYear} <strong>JVNR</strong> - Développeur Web Expert. Tous droits réservés.
+            © {currentYear} <strong>JVNR</strong> - Créateur de solutions digitales. Tous droits réservés.
           </p>
           
           <div className="flex items-center space-x-6 text-sm text-gray-400">
@@ -24,7 +24,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
           <p className="text-gray-500 text-xs">
             Développeur web freelance spécialisé en <strong>SEO</strong>, <strong>performance web</strong> et <strong>accessibilité</strong>.
-            Services de création de sites web sur mesure pour entreprises et startups en France.
+            Services de création de sites sur mesure pour entreprises et startups en France.
           </p>
         </div>
       </div>

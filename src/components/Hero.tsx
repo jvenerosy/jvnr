@@ -28,11 +28,11 @@ const Hero = () => {
         
         {/* Tagline */}
         <p className="text-xl md:text-2xl font-medium text-gray-700 mb-6 max-w-2xl mx-auto leading-relaxed">
-          <strong>Développeur Web Expert</strong>
+          <strong>Créateur de solutions digitales</strong>
         </p>
         
         <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Plus de <strong>15 ans d&apos;expérience</strong> dans la création de sites web performants,
+          Plus de <strong>15 ans d&apos;expérience</strong> dans la création de sites performants,
           optimisés pour le <strong>SEO</strong> et l&apos;<strong>accessibilité</strong>
         </p>
 

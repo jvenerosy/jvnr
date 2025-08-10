@@ -1,11 +1,11 @@
-# Robots.txt pour JVNR - Développeur Web Expert
-# https://jvnr.com
+# Robots.txt pour JVNR - Créateur de solutions digitales
+# https://jvnr.fr
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://jvnr.com/sitemap.xml
+Sitemap: https://jvnr.fr/sitemap.xml
 
 # Disallow crawling of admin or private areas (if any in the future)
 Disallow: /admin/
@@ -36,4 +36,4 @@ Allow: /
 Crawl-delay: 1
 
 # Host directive (optional, for primary domain)
-Host: https://jvnr.com
+Host: https://jvnr.fr

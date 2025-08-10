@@ -6,10 +6,10 @@ const Services = () => {
   const services = [
     {
       icon: Code,
-      title: "Développement Web",
-      description: "Création de sites web modernes et performants avec les dernières technologies (React, Next.js, TypeScript). Applications web sur mesure adaptées à vos besoins spécifiques.",
+      title: "Développement",
+      description: "Création de sites modernes et performants avec les dernières technologies (React, Next.js, TypeScript). Applications sur mesure adaptées à vos besoins spécifiques.",
       features: [
-        "Sites web responsives",
+        "sites responsives",
         "Applications React/Next.js",
         "E-commerce personnalisé",
         "Progressive Web Apps"
@@ -29,7 +29,7 @@ const Services = () => {
     {
       icon: Zap,
       title: "Performance Web",
-      description: "Optimisation de la vitesse et des performances de vos sites web. Amélioration de l'expérience utilisateur et du taux de conversion grâce à des temps de chargement optimaux.",
+      description: "Optimisation de la vitesse et des performances de vos sites. Amélioration de l'expérience utilisateur et du taux de conversion grâce à des temps de chargement optimaux.",
       features: [
         "Audit de performance",
         "Optimisation des images",
@@ -40,7 +40,7 @@ const Services = () => {
     {
       icon: Users,
       title: "Accessibilité",
-      description: "Création de sites web accessibles à tous, conformes aux standards WCAG. Garantie d'une expérience utilisateur inclusive pour tous vos visiteurs.",
+      description: "Création de sites accessibles à tous, conformes aux standards WCAG. Garantie d'une expérience utilisateur inclusive pour tous vos visiteurs.",
       features: [
         "Audit d'accessibilité",
         "Conformité WCAG 2.1",

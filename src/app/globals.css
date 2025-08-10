@@ -49,40 +49,113 @@ body {
   padding: 0;
 }
 
-/* Styles pour les dégradés dans le style Apple */
+/* Styles pour les dégradés dans le style Apple avec animations */
 .gradient-title {
   background: linear-gradient(135deg, #000000 0%, #404040 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
 }
 
 .gradient-h1 {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientFlow 6s ease-in-out infinite;
 }
 
 .gradient-h2 {
   background: linear-gradient(120deg, #ff6b6b 0%, #feca57 50%, #ff9ff3 100%);
+  background-size: 250% 250%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientPulse 5s ease-in-out infinite;
 }
 
 .gradient-h3 {
   background: linear-gradient(110deg, #fa709a 0%, #fee140 50%, #ffecd2 100%);
+  background-size: 280% 280%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientWave 7s ease-in-out infinite;
 }
 
 .gradient-h4 {
   background: linear-gradient(100deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+  background-size: 220% 220%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientRotate 8s linear infinite;
+}
+
+/* Animations pour les dégradés */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes gradientPulse {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 1;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.8;
+  }
+}
+
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 0%;
+  }
+  33% {
+    background-position: 50% 100%;
+  }
+  66% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes gradientRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 /* Optimisations pour les performances */
@@ -92,8 +165,11 @@ body {
 .gradient-h3,
 .gradient-h4 {
   /* Optimisation GPU pour les dégradés */
-  will-change: transform;
+  will-change: transform, background-position;
   transform: translateZ(0);
+  /* Amélioration des performances d'animation */
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Styles pour l'accessibilité et SEO */

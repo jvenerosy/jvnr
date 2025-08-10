@@ -16,7 +16,7 @@ const About = () => {
             À propos
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Passionné par le <strong>développement web</strong> depuis plus de <strong>15 ans</strong>,
+            Passionné par le <strong>développement</strong> depuis plus de <strong>15 ans</strong>,
             je crée des expériences numériques exceptionnelles
           </p>
         </header>
@@ -29,7 +29,7 @@ const About = () => {
             </h3>
             
             <p className="text-lg text-gray-700 leading-relaxed">
-              Avec plus de <strong>15 ans d&apos;expérience</strong>, je crée des sites web performants,
+              Avec plus de <strong>15 ans d&apos;expérience</strong>, je crée des sites performants,
               optimisés pour le <strong>référencement</strong> et <strong>accessibles</strong> à tous. Mon approche allie précision
               technique et vision stratégique pour offrir des solutions sur mesure à fort impact.
             </p>
@@ -42,7 +42,7 @@ const About = () => {
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
                     <Code className="w-4 h-4 text-white" />
                   </div>
-                  <strong>Développement web moderne</strong> (React, Next.js, TypeScript)
+                  <strong>Développement moderne</strong> (React, Next.js, TypeScript...)
                 </li>
                 <li className="flex items-center">
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
