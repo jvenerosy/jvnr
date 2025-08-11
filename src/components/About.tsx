@@ -29,7 +29,7 @@ const About = () => {
             </h3>
             
             <p className="text-lg text-gray-700 leading-relaxed">
-              Déçu des promesses d'un site « clé en main » avec IA ? Nous créons pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
+              Déçu des promesses d&apos;un site « clé en main » avec IA ? Nous créons pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
             </p>
             <div className="pt-4">
               <h4 className="text-lg font-semibold text-black mb-3">
