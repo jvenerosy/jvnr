@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { useActiveSection } from '@/hooks/useActiveSection';
 
 const Header = () => {
   const activeSection = useActiveSection();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const getNavItemClasses = (sectionId: string) => {
     const baseClasses = "text-sm font-medium transition-all duration-200 relative";
@@ -15,11 +17,27 @@ const Header = () => {
       : `${baseClasses} ${inactiveClasses}`;
   };
 
+  const getMobileNavItemClasses = (sectionId: string) => {
+    const baseClasses = "block w-full text-left px-6 py-4 text-lg font-medium transition-all duration-200 border-b border-gray-100 last:border-b-0";
+    const activeClasses = "text-blue-600 bg-blue-50";
+    const inactiveClasses = "text-gray-700 hover:text-blue-600 hover:bg-gray-50";
+    
+    return activeSection === sectionId
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses}`;
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    // Fermer le menu mobile après navigation
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -47,7 +65,7 @@ const Header = () => {
             JVNR
           </button>
 
-          {/* Navigation */}
+          {/* Navigation Desktop */}
           <ul className="hidden md:flex items-center space-x-8" role="menubar">
             <li role="none">
               <button
@@ -95,17 +113,80 @@ const Header = () => {
             </li>
           </ul>
 
-          {/* Menu mobile */}
+          {/* Burger Menu Button */}
           <div className="md:hidden">
             <button
-              className="text-sm font-medium"
+              onClick={toggleMobileMenu}
+              className="relative w-8 h-8 flex flex-col justify-center items-center space-y-1 group"
+              aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isMobileMenuOpen}
+              type="button"
+            >
+              <span
+                className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Menu Mobile */}
+        <div
+          className={`md:hidden absolute left-0 right-0 top-full bg-white/95 backdrop-blur-lg border-b border-gray-200 transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen
+              ? 'opacity-100 visible transform translate-y-0'
+              : 'opacity-0 invisible transform -translate-y-4'
+          }`}
+        >
+          <nav role="navigation" aria-label="Menu mobile">
+            <button
+              onClick={() => scrollToSection('about')}
+              className={getMobileNavItemClasses('about')}
+              role="menuitem"
+              aria-label="Aller à la section À propos"
+              type="button"
+            >
+              À propos
+            </button>
+            <button
+              onClick={() => scrollToSection('services')}
+              className={getMobileNavItemClasses('services')}
+              role="menuitem"
+              aria-label="Aller à la section Services"
+              type="button"
+            >
+              Services
+            </button>
+            <button
+              onClick={() => scrollToSection('pricing')}
+              className={getMobileNavItemClasses('pricing')}
+              role="menuitem"
+              aria-label="Aller à la section Tarifs"
+              type="button"
+            >
+              Tarifs
+            </button>
+            <button
               onClick={() => scrollToSection('contact')}
-              aria-label="Aller au contact (menu mobile)"
+              className={getMobileNavItemClasses('contact')}
+              role="menuitem"
+              aria-label="Aller à la section Contact"
               type="button"
             >
               Contact
             </button>
-          </div>
+          </nav>
         </div>
       </nav>
     </header>
