@@ -1,0 +1,22 @@
+[variables]
+NODE_ENV = "production"
+NPM_CONFIG_PRODUCTION = "false"
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "npm-9_x"]
+nixLibs = ["gcc-unwrapped", "python3", "make", "libc6-compat"]
+aptPkgs = ["curl", "wget", "python3", "build-essential", "libc6-dev"]
+
+[phases.install]
+dependsOn = ["setup"]
+cmds = ["npm ci"]
+
+[phases.build]
+dependsOn = ["install"]
+cmds = [
+  "npm rebuild lightningcss --platform=linux --arch=x64",
+  "npm run build"
+]
+
+[start]
+cmd = "npm run start"
