@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Configuration pour la génération statique (SSG)
-  output: 'export',
+  // Configuration hybride : pages statiques + API routes dynamiques
+  output: 'standalone',
   trailingSlash: true,
   
   // Optimisations des images
   images: {
-    unoptimized: true, // Nécessaire pour l'export statique
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
