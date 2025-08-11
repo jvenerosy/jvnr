@@ -377,3 +377,37 @@ button:disabled {
 
 /* Préchargement des polices critiques - utilisation de Google Fonts Inter */
 /* Police Inter chargée via Google Fonts dans layout.tsx */
+
+/* Fix pour l'alignement des icônes SVG avec le texte */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Spécifiquement pour les icônes Lucide React */
+.lucide {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Styles pour la navigation active */
+.nav-active {
+  color: #2563eb !important; /* text-blue-600 */
+  border-bottom: 2px solid #2563eb !important; /* border-blue-600 */
+  padding-bottom: 0.25rem !important; /* pb-1 */
+}
+
+.nav-inactive {
+  transition: color 0.2s ease, opacity 0.2s ease !important;
+}
+
+.nav-inactive:hover {
+  color: #3b82f6 !important; /* hover:text-blue-500 */
+  opacity: 0.7 !important;
+}
+
+/* Styles spécifiques pour le logo actif */
+.logo-active {
+  border-bottom: 2px solid #2563eb !important;
+  padding-bottom: 0.25rem !important;
+}

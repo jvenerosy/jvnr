@@ -1,6 +1,25 @@
 'use client';
 
+import { useActiveSection } from '@/hooks/useActiveSection';
+
 const Header = () => {
+  const activeSection = useActiveSection();
+
+  const getNavItemClasses = (sectionId: string) => {
+    const baseClasses = "text-sm font-medium transition-all duration-200 relative";
+    const activeClasses = "text-blue-600";
+    const inactiveClasses = "hover:opacity-70 hover:text-blue-500";
+    
+    return activeSection === sectionId
+      ? `${baseClasses} ${activeClasses}`
+      : `${baseClasses} ${inactiveClasses}`;
+  };
+
+  const getActiveIndicator = (sectionId: string) => {
+    return activeSection === sectionId ? (
+      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"></span>
+    ) : null;
+  };
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -22,11 +41,16 @@ const Header = () => {
           {/* Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="text-2xl font-black tracking-tight hover:opacity-70 transition-opacity gradient-h1"
+            className={`text-2xl font-black tracking-tight transition-all duration-200 gradient-h1 relative ${
+              activeSection === 'hero'
+                ? ''
+                : 'hover:opacity-70'
+            }`}
             aria-label="JVNR - Retour à l'accueil"
             type="button"
           >
             JVNR
+            {getActiveIndicator('hero')}
           </button>
 
           {/* Navigation */}
@@ -34,45 +58,49 @@ const Header = () => {
             <li role="none">
               <button
                 onClick={() => scrollToSection('about')}
-                className="text-sm font-medium hover:opacity-70 transition-opacity"
+                className={getNavItemClasses('about')}
                 role="menuitem"
                 aria-label="Aller à la section À propos"
                 type="button"
               >
                 À propos
+                {getActiveIndicator('about')}
               </button>
             </li>
             <li role="none">
               <button
                 onClick={() => scrollToSection('services')}
-                className="text-sm font-medium hover:opacity-70 transition-opacity"
+                className={getNavItemClasses('services')}
                 role="menuitem"
                 aria-label="Aller à la section Services"
                 type="button"
               >
                 Services
+                {getActiveIndicator('services')}
               </button>
             </li>
             <li role="none">
               <button
                 onClick={() => scrollToSection('pricing')}
-                className="text-sm font-medium hover:opacity-70 transition-opacity"
+                className={getNavItemClasses('pricing')}
                 role="menuitem"
                 aria-label="Aller à la section Tarifs"
                 type="button"
               >
                 Tarifs
+                {getActiveIndicator('pricing')}
               </button>
             </li>
             <li role="none">
               <button
                 onClick={() => scrollToSection('contact')}
-                className="text-sm font-medium hover:opacity-70 transition-opacity"
+                className={getNavItemClasses('contact')}
                 role="menuitem"
                 aria-label="Aller à la section Contact"
                 type="button"
               >
                 Contact
+                {getActiveIndicator('contact')}
               </button>
             </li>
           </ul>

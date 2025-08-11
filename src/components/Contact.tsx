@@ -1,8 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { Mail, Linkedin, MessageCircle, Calculator, Users, ArrowRight } from 'lucide-react';
+import ContactForm from './ContactForm';
 
 const Contact = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const openForm = () => {
+    setIsFormOpen(true);
+  };
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-6">
@@ -100,18 +107,26 @@ const Contact = () => {
             </div>
 
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <a
-                href="mailto:contact@jvnr.fr?subject=Demande de projet&body=Bonjour,%0D%0A%0D%0AJe souhaiterais discuter d'un projet avec vous.%0D%0A%0D%0ACordialement"
-                className="w-full bg-black text-white py-4 px-6 text-center font-medium hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 inline-flex items-center justify-center"
-                aria-label="Envoyer un email pour démarrer un projet"
+              <button
+                onClick={openForm}
+                className="w-full bg-black text-white py-4 px-6 text-center font-medium hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 flex items-center justify-center"
+                aria-label="Ouvrir le formulaire de contact"
+                type="button"
               >
-                <span className="text-white">Envoyer un message</span>
-                <ArrowRight className="w-4 h-4 ml-2 text-white" />
-              </a>
+                Envoyer un message
+                <ArrowRight className="w-4 h-4 ml-2 flex-shrink-0" />
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Formulaire de contact */}
+      <ContactForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        formType="general"
+      />
     </section>
   );
 };

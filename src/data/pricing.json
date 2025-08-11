@@ -1,0 +1,78 @@
+{
+  "plans": [
+    {
+      "name": "Site Vitrine",
+      "price": "1 990€",
+      "period": "HT",
+      "description": "Parfait pour présenter votre activité",
+      "features": [
+        "Design responsive moderne",
+        "5 à 8 pages optimisées",
+        "Optimisation SEO de base",
+        "Formulaire de contact",
+        "Hébergement 1 an inclus",
+        "Formation à la gestion",
+        "Support 3 mois"
+      ],
+      "popular": false,
+      "buttonText": "Choisir cette formule",
+      "buttonStyle": "bg-white text-black border-2 border-black hover:bg-gray-100",
+      "type": "vitrine"
+    },
+    {
+      "name": "Site E-shop",
+      "price": "4 990€",
+      "period": "HT",
+      "description": "Solution complète pour vendre en ligne",
+      "features": [
+        "Boutique en ligne complète",
+        "Gestion des produits illimitée",
+        "Système de paiement sécurisé",
+        "Gestion des stocks",
+        "Tableau de bord admin",
+        "Optimisation SEO avancée",
+        "Formation complète",
+        "Support 6 mois"
+      ],
+      "popular": true,
+      "buttonText": "Choisir cette formule",
+      "buttonStyle": "bg-black text-white hover:bg-gray-800",
+      "type": "eshop"
+    },
+    {
+      "name": "Site Sur Mesure",
+      "price": "Sur devis",
+      "period": "",
+      "description": "Solution personnalisée selon vos besoins",
+      "features": [
+        "Développement 100% personnalisé",
+        "Fonctionnalités spécifiques",
+        "Intégrations sur mesure",
+        "Architecture scalable",
+        "Performance optimisée",
+        "Support technique dédié",
+        "Formation personnalisée",
+        "Maintenance incluse"
+      ],
+      "popular": false,
+      "buttonText": "Demander un devis",
+      "buttonStyle": "bg-white text-black border-2 border-black hover:bg-gray-100",
+      "type": "custom"
+    }
+  ],
+  "maintenance": {
+    "name": "Forfait Maintenance",
+    "price": "99€",
+    "period": "/mois HT",
+    "description": "Gardez votre site performant et sécurisé",
+    "features": [
+      "Mises à jour de sécurité",
+      "Sauvegardes automatiques",
+      "Monitoring de performance",
+      "Support technique prioritaire",
+      "Modifications mineures incluses"
+    ],
+    "buttonText": "Demander un devis maintenance",
+    "note": "Tarif adapté selon la complexité de votre site"
+  }
+}

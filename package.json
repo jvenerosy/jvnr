@@ -12,8 +12,10 @@
     "analyze": "npm run build && npx @next/bundle-analyzer"
   },
   "dependencies": {
+    "@types/nodemailer": "^6.4.17",
     "lucide-react": "^0.539.0",
     "next": "15.4.6",
+    "nodemailer": "^7.0.5",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
