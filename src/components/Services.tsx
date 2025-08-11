@@ -9,7 +9,7 @@ const Services = () => {
       title: "Développement",
       description: "Création de sites modernes et performants avec les dernières technologies (React, Next.js, TypeScript). Applications sur mesure adaptées à vos besoins spécifiques.",
       features: [
-        "sites responsives",
+        "Sites responsives",
         "Applications React/Next.js",
         "E-commerce personnalisé",
         "Progressive Web Apps"

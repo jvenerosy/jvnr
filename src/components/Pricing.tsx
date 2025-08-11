@@ -206,8 +206,8 @@ const Pricing = () => {
         {/* Note importante */}
         <div className="text-center mt-12">
           <p className="text-gray-600 max-w-2xl mx-auto">
-            <strong>Tous nos tarifs sont transparents</strong> et incluent un accompagnement personnalisé. 
-            Chaque projet est unique, n'hésitez pas à nous contacter pour discuter de vos besoins spécifiques.
+            <strong>Tous nos tarifs sont transparents</strong> et incluent un accompagnement personnalisé.
+            Chaque projet est unique, n&apos;hésitez pas à nous contacter pour discuter de vos besoins spécifiques.
           </p>
         </div>
       </div>
