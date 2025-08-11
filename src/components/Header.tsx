@@ -15,11 +15,6 @@ const Header = () => {
       : `${baseClasses} ${inactiveClasses}`;
   };
 
-  const getActiveIndicator = (sectionId: string) => {
-    return activeSection === sectionId ? (
-      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"></span>
-    ) : null;
-  };
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -50,7 +45,6 @@ const Header = () => {
             type="button"
           >
             JVNR
-            {getActiveIndicator('hero')}
           </button>
 
           {/* Navigation */}
@@ -64,7 +58,6 @@ const Header = () => {
                 type="button"
               >
                 À propos
-                {getActiveIndicator('about')}
               </button>
             </li>
             <li role="none">
@@ -76,7 +69,6 @@ const Header = () => {
                 type="button"
               >
                 Services
-                {getActiveIndicator('services')}
               </button>
             </li>
             <li role="none">
@@ -88,7 +80,6 @@ const Header = () => {
                 type="button"
               >
                 Tarifs
-                {getActiveIndicator('pricing')}
               </button>
             </li>
             <li role="none">
@@ -100,7 +91,6 @@ const Header = () => {
                 type="button"
               >
                 Contact
-                {getActiveIndicator('contact')}
               </button>
             </li>
           </ul>
