@@ -4,7 +4,7 @@
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat-square&logo=vercel)](https://vercel.com/)
+[![Coolify](https://img.shields.io/badge/Deploy-Coolify-6366f1?style=flat-square&logo=docker)](https://coolify.io/)
 
 [![SEO Optimized](https://img.shields.io/badge/SEO-Optimized-green?style=flat-square&logo=google)](https://developers.google.com/search)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-purple?style=flat-square&logo=pwa)](https://web.dev/progressive-web-apps/)
@@ -162,7 +162,8 @@ jvnr-site/
 - **Headers de sécurité** : Configurés (commentés pour export statique)
 
 ### Plateformes supportées
-- **Vercel** : Déploiement optimal avec API routes
+- **Coolify** : Déploiement optimal avec Docker et API routes
+- **Vercel** : Compatible avec déploiement Next.js
 - **Netlify** : Compatible avec fonctions serverless
 - **Docker** : Configuration standalone
 - **Serveurs traditionnels** : Avec Node.js
