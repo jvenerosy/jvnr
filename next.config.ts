@@ -24,6 +24,15 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   
+  // Packages externes pour les composants serveur (Next.js 15)
+  serverExternalPackages: [],
+  
+  // Optimisations du compilateur
+  compiler: {
+    // Supprimer les console.log en production
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
   // Headers de sécurité et performance - désactivés pour l'export statique
   // Les headers seront configurés au niveau du serveur web (nginx)
   // async headers() {

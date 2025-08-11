@@ -1,32 +1,31 @@
 FROM node:18-slim AS base
+WORKDIR /app
+
+# Install system dependencies once
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
-WORKDIR /app
-
-# Install dependencies based on the preferred package manager
+# Copy package files
 COPY package.json package-lock.json* ./
-RUN \
-  if [ -f package-lock.json ]; then npm ci --only=production; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# Install production dependencies with cache optimization
+RUN npm ci --only=production --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files
+COPY package.json package-lock.json* ./
+# Install all dependencies including devDependencies for build
+RUN npm ci --frozen-lockfile
+
+# Copy source code
 COPY . .
 
-# Install all dependencies including devDependencies for build
-RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
-RUN npm ci
-
 # Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
+# Disable telemetry during build for faster builds
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Build the application
 RUN npm run build
 
 # Production image, copy all the files and run next

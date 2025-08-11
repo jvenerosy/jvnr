@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "build:fast": "NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "seo:check": "node scripts/seo-check.js",
     "seo:build": "npm run seo:check && npm run build",
-    "analyze": "npm run build && npx @next/bundle-analyzer"
+    "analyze": "npm run build && npx @next/bundle-analyzer",
+    "clean": "rm -rf .next out node_modules/.cache"
   },
   "dependencies": {
     "@types/nodemailer": "^6.4.17",
