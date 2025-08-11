@@ -22,7 +22,7 @@ const Footer = () => {
         
         {/* Informations supplémentaires pour le SEO */}
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-300 text-xs">
             Développeur web freelance spécialisé en <strong>SEO</strong>, <strong>performance web</strong> et <strong>accessibilité</strong>.
             Services de création de sites sur mesure pour entreprises et startups en France.
           </p>
