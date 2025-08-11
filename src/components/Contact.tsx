@@ -18,8 +18,8 @@ const Contact = () => {
             Contact
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Prêt à donner vie à votre projet ? 
-            Contactez-moi pour discuter de vos besoins
+            Prêt à donner vie à votre projet ?
+            Contactez-nous pour discuter de vos besoins
           </p>
         </div>
 
@@ -33,7 +33,7 @@ const Contact = () => {
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 Que vous ayez besoin d&apos;un nouveau site web, d&apos;une optimisation SEO,
                 ou d&apos;améliorer les performances de votre site existant,
-                je suis là pour vous accompagner.
+                nous sommes là pour vous accompagner.
               </p>
               <p className="text-gray-600">
                 Réponse garantie sous 24h

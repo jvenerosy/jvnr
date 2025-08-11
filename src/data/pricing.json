@@ -62,7 +62,7 @@
   ],
   "maintenance": {
     "name": "Forfait Maintenance",
-    "price": "99€",
+    "price": "À partir de 99€",
     "period": "/mois HT",
     "description": "Gardez votre site performant et sécurisé",
     "features": [

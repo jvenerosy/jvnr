@@ -16,8 +16,8 @@ const About = () => {
             À propos
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Passionné par le <strong>développement</strong> depuis plus de <strong>15 ans</strong>,
-            je crée des expériences numériques exceptionnelles
+            Passionnés par le <strong>développement</strong> depuis plus de <strong>15 ans</strong>,
+            nous créons des expériences numériques exceptionnelles
           </p>
         </header>
 
@@ -29,11 +29,11 @@ const About = () => {
             </h3>
             
             <p className="text-lg text-gray-700 leading-relaxed">
-              Déçu des promesses d’un site « clé en main » avec IA ? Je crée pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
+              Déçu des promesses d'un site « clé en main » avec IA ? Nous créons pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
             </p>
             <div className="pt-4">
               <h4 className="text-lg font-semibold text-black mb-3">
-                Mes domaines d&apos;expertise :
+                Nos domaines d&apos;expertise :
               </h4>
               <ul className="space-y-4 text-gray-700" role="list">
                 <li className="flex items-center mb-4">

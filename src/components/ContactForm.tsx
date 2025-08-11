@@ -36,31 +36,31 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
         return {
           title: `Demande de devis - ${vitrinePlan?.name}`,
           subtitle: `Formule ${vitrinePlan?.name} (${vitrinePlan?.price} ${vitrinePlan?.period})`,
-          defaultMessage: `Bonjour,\n\nJe suis intéressé(e) par votre formule ${vitrinePlan?.name} à ${vitrinePlan?.price} ${vitrinePlan?.period}. Cette offre correspond parfaitement à mes besoins pour créer une présence en ligne professionnelle.\n\nPourriez-vous me contacter pour discuter de mon projet et planifier un rendez-vous ?\n\nMerci d'avance pour votre retour.`
+          defaultMessage: `Bonjour,\n\nNous sommes intéressés par votre formule ${vitrinePlan?.name} à ${vitrinePlan?.price} ${vitrinePlan?.period}. Cette offre correspond parfaitement à nos besoins pour créer une présence en ligne professionnelle.\n\nPourriez-vous nous contacter pour discuter de notre projet et planifier un rendez-vous ?\n\nMerci d'avance pour votre retour.`
         };
       case 'eshop':
         return {
           title: `Demande de devis - ${eshopPlan?.name}`,
           subtitle: `Formule ${eshopPlan?.name} (${eshopPlan?.price} ${eshopPlan?.period})`,
-          defaultMessage: `Bonjour,\n\nJe souhaite développer une boutique en ligne et votre formule ${eshopPlan?.name} à ${eshopPlan?.price} ${eshopPlan?.period} m'intéresse vivement.\n\nJ'aimerais discuter avec vous de mon projet e-commerce, des fonctionnalités nécessaires et des délais de réalisation.\n\nPouvez-vous me recontacter pour organiser un échange ?\n\nCordialement.`
+          defaultMessage: `Bonjour,\n\nNous souhaitons développer une boutique en ligne et votre formule ${eshopPlan?.name} à ${eshopPlan?.price} ${eshopPlan?.period} nous intéresse vivement.\n\nNous aimerions discuter avec vous de notre projet e-commerce, des fonctionnalités nécessaires et des délais de réalisation.\n\nPouvez-vous nous recontacter pour organiser un échange ?\n\nCordialement.`
         };
       case 'custom':
         return {
           title: `Demande de devis - ${customPlan?.name}`,
           subtitle: 'Solution personnalisée',
-          defaultMessage: `Bonjour,\n\nJ'ai un projet de site web spécifique qui nécessite une solution sur mesure. Voici une première description de mes besoins :\n\n[Décrivez votre projet, vos objectifs, fonctionnalités souhaitées, public cible, etc.]\n\nJ'aimerais échanger avec vous pour étudier la faisabilité et obtenir un devis personnalisé.\n\nMerci pour votre expertise.`
+          defaultMessage: `Bonjour,\n\nNous avons un projet de site web spécifique qui nécessite une solution sur mesure. Voici une première description de nos besoins :\n\n[Décrivez votre projet, vos objectifs, fonctionnalités souhaitées, public cible, etc.]\n\nNous aimerions échanger avec vous pour étudier la faisabilité et obtenir un devis personnalisé.\n\nMerci pour votre expertise.`
         };
       case 'maintenance':
         return {
           title: `Demande de devis - ${maintenance.name}`,
           subtitle: `${maintenance.price} ${maintenance.period}`,
-          defaultMessage: `Bonjour,\n\nJe possède déjà un site web et je recherche un partenaire fiable pour assurer sa maintenance technique.\n\nVotre ${maintenance.name} à ${maintenance.price} ${maintenance.period} m'intéresse. J'aimerais connaître les détails des prestations incluses et obtenir un devis adapté à mon site.\n\nPouvez-vous me recontacter pour en discuter ?\n\nMerci d'avance.`
+          defaultMessage: `Bonjour,\n\nNous possédons déjà un site web et nous recherchons un partenaire fiable pour assurer sa maintenance technique.\n\nVotre ${maintenance.name} à ${maintenance.price} ${maintenance.period} nous intéresse. Nous aimerions connaître les détails des prestations incluses et obtenir un devis adapté à notre site.\n\nPouvez-vous nous recontacter pour en discuter ?\n\nMerci d'avance.`
         };
       default:
         return {
           title: 'Contact',
           subtitle: 'Parlons de votre projet',
-          defaultMessage: `Bonjour,\n\nJe souhaiterais échanger avec vous concernant un projet web. Votre expertise et vos réalisations m'intéressent.\n\nPourriez-vous me recontacter pour que nous puissions discuter de mes besoins ?\n\nMerci pour votre temps.`
+          defaultMessage: `Bonjour,\n\nNous souhaiterions échanger avec vous concernant un projet web. Votre expertise et vos réalisations nous intéressent.\n\nPourriez-vous nous recontacter pour que nous puissions discuter de nos besoins ?\n\nMerci pour votre temps.`
         };
     }
   };
