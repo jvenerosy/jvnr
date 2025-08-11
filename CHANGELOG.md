@@ -7,34 +7,40 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.22.0] - 2025-08-11
+### Ajouté
+- 📄 **Générateur de contrats PDF** interactif avec support des factures (4ec71fc)
+- 🛠️ **Dépendances de développement** : jsPDF, readline-sync, types associés
+
 ## [1.21.0] - 2025-08-11
 ### Ajouté
-- 📱 **Navigation mobile** avec menu toggle et améliorations d'accessibilité
+- 📱 **Navigation mobile** avec menu toggle et améliorations d'accessibilité (a6f990e)
+- 📚 **Documentation README** améliorée avec badges technologiques et informations de déploiement (05c31b0, 8694f40)
 
 ## [1.20.0] - 2025-08-11
 ### Corrigé
-- 🎨 **Couleur du texte** dans le Footer pour une meilleure lisibilité
+- 🎨 **Couleur du texte** dans le Footer pour une meilleure lisibilité (0855cb8)
 
 ## [1.19.0] - 2025-08-11
 ### Supprimé
-- 🗑️ **Scripts de build et SEO obsolètes**
+- 🗑️ **Scripts de build et SEO obsolètes** (4105ba6)
 
 ## [1.18.0] - 2025-08-11
 ### Modifié
-- 🎨 **Composant Hero** avec icône ChevronsDown et texte inclusif pour les Services
+- 🎨 **Composant Hero** avec icône ChevronsDown et texte inclusif pour les Services (d52d20b)
 
 ## [1.17.0] - 2025-08-11
 ### Corrigé
-- 🔤 **Entité HTML** pour l'apostrophe dans le composant About
+- 🔤 **Entité HTML** pour l'apostrophe dans le composant About (d1a9106)
 
 ## [1.16.0] - 2025-08-11
 ### Modifié
-- 📝 **Composants About et Contact** avec langage inclusif
+- 📝 **Composants About et Contact** avec langage inclusif (13881b3)
 - 💰 **Description des tarifs** pour plus de clarté
 
 ## [1.15.0] - 2025-08-11
 ### Supprimé
-- 🗑️ **Dockerfile et .dockerignore obsolètes**
+- 🗑️ **Dockerfile et .dockerignore obsolètes** (29c5888)
 - 📜 **Script de test de build Docker**
 
 ## [1.14.0] - 2025-08-11
