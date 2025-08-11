@@ -3,61 +3,27 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 
-// Données des plans de pricing
-const pricingData = {
-  "plans": [
-    {
-      "name": "Site Vitrine",
-      "price": "1 990€",
-      "period": "HT",
-      "description": "Parfait pour présenter votre activité",
-      "features": [
-        "Design responsive moderne",
-        "5 à 8 pages optimisées",
-        "Optimisation SEO de base",
-        "Formulaire de contact",
-        "Hébergement 1 an inclus",
-        "Formation à la gestion",
-        "Support 3 mois"
-      ],
-      "type": "vitrine"
-    },
-    {
-      "name": "Site E-shop",
-      "price": "4 990€",
-      "period": "HT",
-      "description": "Solution complète pour vendre en ligne",
-      "features": [
-        "Boutique en ligne complète",
-        "Gestion des produits illimitée",
-        "Système de paiement sécurisé",
-        "Gestion des stocks",
-        "Tableau de bord admin",
-        "Optimisation SEO avancée",
-        "Formation complète",
-        "Support 6 mois"
-      ],
-      "type": "eshop"
-    },
-    {
-      "name": "Site Sur Mesure",
-      "price": "Sur devis",
-      "period": "",
-      "description": "Solution personnalisée selon vos besoins",
-      "features": [
-        "Développement 100% personnalisé",
-        "Fonctionnalités spécifiques",
-        "Intégrations sur mesure",
-        "Architecture scalable",
-        "Performance optimisée",
-        "Support technique dédié",
-        "Formation personnalisée",
-        "Maintenance incluse"
-      ],
-      "type": "custom"
-    }
-  ]
-};
+// Charger les données de pricing depuis le fichier JSON
+let pricingData;
+try {
+  const pricingPath = path.join(__dirname, 'src', 'data', 'pricing.json');
+  const pricingContent = fs.readFileSync(pricingPath, 'utf8');
+  pricingData = JSON.parse(pricingContent);
+} catch (error) {
+  console.error('❌ Erreur lors du chargement des données de pricing :', error.message);
+  console.log('📁 Tentative de chargement depuis le répertoire courant...');
+  
+  // Fallback : essayer depuis le répertoire courant
+  try {
+    const fallbackPath = path.join(process.cwd(), 'src', 'data', 'pricing.json');
+    const pricingContent = fs.readFileSync(fallbackPath, 'utf8');
+    pricingData = JSON.parse(pricingContent);
+    console.log('✅ Données de pricing chargées avec succès depuis le répertoire courant');
+  } catch (fallbackError) {
+    console.error('❌ Impossible de charger les données de pricing :', fallbackError.message);
+    process.exit(1);
+  }
+}
 
 class ContractPDFGenerator {
   constructor() {

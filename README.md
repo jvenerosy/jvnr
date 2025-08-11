@@ -31,6 +31,24 @@ Site minimaliste en page unique (single page) mettant en avant :
 - **Email** : Nodemailer 7.0.5
 - **TypeScript** : 5.x
 - **Déploiement** : Configuration hybride (standalone + API routes)
+- **Outils** : Générateur de contrats PDF avec jsPDF
+
+## 🛠️ Outils Inclus
+
+### Générateur de Contrats PDF
+- **Script interactif** : [`generate-contract-interactive.js`](generate-contract-interactive.js)
+- **Données synchronisées** : Utilise [`src/data/pricing.json`](src/data/pricing.json)
+- **Fonctionnalités** :
+  - Génération de contrats PDF personnalisés
+  - Support des factures correspondantes
+  - Plans tarifaires avec remises
+  - Informations client complètes
+  - Conditions générales automatiques
+
+### Gestion des Versions
+- **Tags Git automatisés** : Correspondance avec le changelog
+- **Releases GitHub** : Génération automatique via GitHub CLI
+- **Versioning sémantique** : Suivi des versions selon SemVer
 
 ## 📱 Fonctionnalités
 

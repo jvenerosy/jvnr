@@ -7,6 +7,12 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.23.0] - 2025-08-11
+### Modifié
+- 🔧 **Générateur de contrats** : utilisation des données de pricing.json pour éviter la duplication
+- 🏷️ **Tags Git et releases** : création automatisée de 23 tags et releases GitHub correspondants au changelog
+- 📦 **Version** : mise à jour vers 1.23.0
+
 ## [1.22.0] - 2025-08-11
 ### Ajouté
 - 📄 **Générateur de contrats PDF** interactif avec support des factures (4ec71fc)
