@@ -29,38 +29,36 @@ const About = () => {
             </h3>
             
             <p className="text-lg text-gray-700 leading-relaxed">
-              Avec plus de <strong>15 ans d&apos;expérience</strong>, je crée des sites performants,
-              optimisés pour le <strong>référencement</strong> et <strong>accessibles</strong> à tous. Mon approche allie précision
-              technique et vision stratégique pour offrir des solutions sur mesure à fort impact.
+              Déçu des promesses d’un site « clé en main » avec IA ? Je crée pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
             </p>
             <div className="pt-4">
               <h4 className="text-lg font-semibold text-black mb-3">
                 Mes domaines d&apos;expertise :
               </h4>
-              <ul className="space-y-3 text-gray-700" role="list">
-                <li className="flex items-center">
+              <ul className="space-y-4 text-gray-700" role="list">
+                <li className="flex items-center mb-4">
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
                     <Code className="w-4 h-4 text-white" />
                   </div>
-                  <strong>Développement moderne</strong> (React, Next.js, TypeScript...)
+                  <span><strong>Développement moderne</strong> (React, Next.js, TypeScript...)</span>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center mb-4">
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
                     <Search className="w-4 h-4 text-white" />
                   </div>
-                  <strong>Optimisation SEO</strong> et performance web
+                  <span><strong>Optimisation SEO</strong> et performance web</span>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center mb-4">
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
                     <Users className="w-4 h-4 text-white" />
                   </div>
-                  <strong>Accessibilité</strong> et expérience utilisateur
+                  <span><strong>Accessibilité</strong> et expérience utilisateur</span>
                 </li>
-                <li className="flex items-center">
+                <li className="flex items-center mb-4">
                   <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
                     <Zap className="w-4 h-4 text-white" />
                   </div>
-                  <strong>Architecture</strong> et scalabilité des applications
+                  <span><strong>Architecture</strong> et scalabilité des applications</span>
                 </li>
               </ul>
             </div>
