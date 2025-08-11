@@ -72,6 +72,17 @@ const Header = () => {
             </li>
             <li role="none">
               <button
+                onClick={() => scrollToSection('pricing')}
+                className="text-sm font-medium hover:opacity-70 transition-opacity"
+                role="menuitem"
+                aria-label="Aller à la section Tarifs"
+                type="button"
+              >
+                Tarifs
+              </button>
+            </li>
+            <li role="none">
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="text-sm font-medium hover:opacity-70 transition-opacity"
                 role="menuitem"
