@@ -133,7 +133,7 @@ const Services = () => {
               className="bg-white text-black px-8 py-4 font-medium hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
               aria-label="Aller à la section contact"
             >
-              Contactez-moi
+              Contactez-nous
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
+import { ChevronsDown } from 'lucide-react';
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -67,12 +67,7 @@ const Hero = () => {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
           aria-hidden="true"
         >
-          <div className="flex flex-col items-center">
-            <div className="w-6 h-10 border-2 border-black rounded-full flex justify-center mb-2">
-              <div className="w-1 h-3 bg-black rounded-full mt-2"></div>
-            </div>
-            <ChevronDown className="w-4 h-4 text-black" />
-          </div>
+          <ChevronsDown className="w-8 h-8 text-gray-600" />
         </div>
       </div>
     </section>
