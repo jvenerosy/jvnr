@@ -11,12 +11,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience | SEO & Performance",
-    template: "%s | JVNR - Créateur de solutions digitales performantes"
+    default: "JVNR - Créateur de solutions digitales | 15+ ans d'expérience | SEO & Performance",
+    template: "%s | JVNR - Créateur de solutions digitales"
   },
   description: "Créateur de solutions digitales avec plus de 15 ans d'expérience. Spécialisé en création de sites performants, optimisation SEO, accessibilité web et développement React/Next.js. Basé en France, services personnalisés pour entreprises et startups.",
   keywords: [
-    "créateur de solutions digitales performantes",
+    "créateur de solutions digitales",
     "développeur freelance France",
     "création site web performant",
     "optimisation SEO technique",
@@ -48,24 +48,24 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience",
+    title: "JVNR - Créateur de solutions digitales | 15+ ans d'expérience",
     description: "Créateur de solutions digitales avec plus de 15 ans d'expérience. Création de sites performants, optimisation SEO et développement React/Next.js sur mesure.",
     type: "website",
     locale: "fr_FR",
     url: "https://jvnr.fr",
-    siteName: "JVNR - Créateur de solutions digitales performantes",
+    siteName: "JVNR - Créateur de solutions digitales",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "JVNR - Créateur de solutions digitales performantes avec 15+ ans d'expérience",
+        alt: "JVNR - Créateur de solutions digitales avec 15+ ans d'expérience",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JVNR - Créateur de solutions digitales performantes | 15+ ans d'expérience",
+    title: "JVNR - Créateur de solutions digitales | 15+ ans d'expérience",
     description: "Créateur de solutions digitales spécialisé en SEO, performance et accessibilité. Plus de 15 ans d'expérience en développement React/Next.js.",
     images: ["/twitter-image.jpg"],
     creator: "@jvnr_dev",
