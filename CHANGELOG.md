@@ -7,6 +7,14 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.24.0] - 2025-08-11
+### Ajouté
+- 🔧 **Support de la maintenance** dans le générateur de contrats PDF
+- 📄 **Contrats de maintenance** avec conditions spécifiques et durée personnalisable
+- 💰 **Factures de maintenance** avec tarification mensuelle
+- 🎯 **Menu interactif** incluant l'option maintenance (4ème choix)
+- 📋 **Données de maintenance** intégrées depuis pricing.json
+
 ## [1.23.0] - 2025-08-11
 ### Modifié
 - 🔧 **Générateur de contrats** : utilisation des données de pricing.json pour éviter la duplication

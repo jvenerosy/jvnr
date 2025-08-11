@@ -42,8 +42,11 @@ Site minimaliste en page unique (single page) mettant en avant :
   - Génération de contrats PDF personnalisés
   - Support des factures correspondantes
   - Plans tarifaires avec remises
+  - **Contrats de maintenance** avec conditions spécifiques
+  - **Factures de maintenance** avec tarification mensuelle
   - Informations client complètes
   - Conditions générales automatiques
+  - Durée de contrat personnalisable
 
 ### Gestion des Versions
 - **Tags Git automatisés** : Correspondance avec le changelog
