@@ -7,6 +7,14 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.29.0] - 2025-08-12
+### Ajouté
+- 🎨 **Favicons et icônes d'app** : Mise à jour complète du design des icônes
+- 📱 **Icônes Android Chrome** : Nouvelles versions 192x192 et 512x512 avec design amélioré
+- 🍎 **Icône Apple Touch** : Design optimisé pour les appareils iOS
+- 🌐 **Favicons standards** : Versions 16x16, 32x32 et favicon.ico avec visuel amélioré
+- ✨ **Design cohérent** : Harmonisation visuelle de toutes les variantes d'icônes
+
 ## [1.28.0] - 2025-08-12
 ### Ajouté
 - 🌙 **Thème sombre complet** : Implémentation d'un mode sombre pour l'ensemble du site
