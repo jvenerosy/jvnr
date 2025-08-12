@@ -8,7 +8,7 @@ import pricingData from '../data/pricing.json';
 interface ContactFormProps {
   isOpen: boolean;
   onClose: () => void;
-  formType: 'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general';
+  formType: 'onepage' | 'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general';
 }
 
 const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
@@ -30,12 +30,19 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
   const [remainingTime, setRemainingTime] = useState<number>(0);
 
   const getFormConfig = () => {
+    const onepagePlan = pricingData.plans.find(plan => plan.type === 'onepage');
     const vitrinePlan = pricingData.plans.find(plan => plan.type === 'vitrine');
     const eshopPlan = pricingData.plans.find(plan => plan.type === 'eshop');
     const customPlan = pricingData.plans.find(plan => plan.type === 'custom');
     const maintenance = pricingData.maintenance;
 
     switch (formType) {
+      case 'onepage':
+        return {
+          title: `Demande de devis - ${onepagePlan?.name}`,
+          subtitle: `Formule ${onepagePlan?.name} (${onepagePlan?.price} ${onepagePlan?.period})`,
+          defaultMessage: `Bonjour,\n\nNous souhaitons créer un site web simple et efficace. Votre formule ${onepagePlan?.name} à ${onepagePlan?.price} ${onepagePlan?.period} correspond parfaitement à nos besoins pour une présence en ligne rapide et professionnelle.\n\nPourriez-vous nous contacter pour discuter de notre projet et planifier un rendez-vous ?\n\nMerci d'avance pour votre retour.`
+        };
       case 'vitrine':
         return {
           title: `Demande de devis - ${vitrinePlan?.name}`,

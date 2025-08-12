@@ -1,6 +1,25 @@
 {
   "plans": [
     {
+      "name": "Site One Page",
+      "price": "690€",
+      "period": "HT",
+      "description": "Solution simple et efficace pour démarrer",
+      "features": [
+        "Design responsive moderne",
+        "Page unique optimisée",
+        "Optimisation SEO de base",
+        "Formulaire de contact",
+        "Hébergement 1 an inclus",
+        "Formation de base",
+        "Support 1 mois"
+      ],
+      "popular": false,
+      "buttonText": "Choisir cette formule",
+      "buttonStyle": "bg-white text-black border-2 border-black hover:bg-gray-100",
+      "type": "onepage"
+    },
+    {
       "name": "Site Vitrine",
       "price": "1 990€",
       "period": "HT",
@@ -14,7 +33,7 @@
         "Formation à la gestion",
         "Support 3 mois"
       ],
-      "popular": false,
+      "popular": true,
       "buttonText": "Choisir cette formule",
       "buttonStyle": "bg-white text-black border-2 border-black hover:bg-gray-100",
       "type": "vitrine"
@@ -34,7 +53,7 @@
         "Formation complète",
         "Support 6 mois"
       ],
-      "popular": true,
+      "popular": false,
       "buttonText": "Choisir cette formule",
       "buttonStyle": "bg-black text-white hover:bg-gray-800",
       "type": "eshop"

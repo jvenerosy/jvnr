@@ -1,17 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, FileText, Globe, ShoppingCart, Code, Wrench } from 'lucide-react';
 import ContactForm from './ContactForm';
 import pricingData from '../data/pricing.json';
 
 const Pricing = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formType, setFormType] = useState<'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general'>('general');
+  const [formType, setFormType] = useState<'onepage' | 'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general'>('general');
 
-  const openForm = (type: 'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general') => {
+  const openForm = (type: 'onepage' | 'vitrine' | 'eshop' | 'custom' | 'maintenance' | 'general') => {
     setFormType(type);
     setIsFormOpen(true);
+  };
+
+  const getPlanIcon = (type: string) => {
+    switch (type) {
+      case 'onepage':
+        return <FileText className="w-8 h-8 text-blue-600" />;
+      case 'vitrine':
+        return <Globe className="w-8 h-8 text-green-600" />;
+      case 'eshop':
+        return <ShoppingCart className="w-8 h-8 text-purple-600" />;
+      case 'custom':
+        return <Code className="w-8 h-8 text-orange-600" />;
+      default:
+        return <FileText className="w-8 h-8 text-blue-600" />;
+    }
   };
 
   const { plans, maintenance } = pricingData;
@@ -35,14 +50,14 @@ const Pricing = () => {
           </p>
         </header>
 
-        {/* Plans principaux */}
+        {/* Plans principaux (sans Site Sur Mesure) */}
         <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-16">
-          {plans.map((plan, index) => (
+          {plans.filter(plan => plan.type !== 'custom').map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-white rounded-2xl border-2 p-8 ${
-                plan.popular 
-                  ? 'border-black shadow-2xl transform scale-105' 
+              className={`relative bg-white rounded-2xl border-2 p-8 flex flex-col ${
+                plan.popular
+                  ? 'border-black shadow-2xl transform scale-105'
                   : 'border-gray-200 shadow-lg'
               }`}
             >
@@ -55,7 +70,10 @@ const Pricing = () => {
               )}
 
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-black mb-2">{plan.name}</h3>
+                <div className="flex items-center justify-center mb-2">
+                  {getPlanIcon(plan.type)}
+                  <h3 className="text-2xl font-bold text-black ml-3">{plan.name}</h3>
+                </div>
                 <p className="text-gray-600 mb-4">{plan.description}</p>
                 <div className="mb-6">
                   <span className="text-4xl font-black text-black">{plan.price}</span>
@@ -63,7 +81,7 @@ const Pricing = () => {
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8" role="list">
+              <ul className="space-y-4 mb-8 flex-grow" role="list">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center">
                     <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center mr-3 flex-shrink-0">
@@ -75,7 +93,7 @@ const Pricing = () => {
               </ul>
 
               <button
-                onClick={() => openForm(plan.type as 'vitrine' | 'eshop' | 'custom')}
+                onClick={() => openForm(plan.type as 'onepage' | 'vitrine' | 'eshop' | 'custom')}
                 className={`w-full py-4 px-6 rounded-lg font-medium transition-all duration-200 ${plan.buttonStyle}`}
                 aria-label={`${plan.buttonText} - ${plan.name}`}
                 type="button"
@@ -86,28 +104,28 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* Forfait maintenance */}
-        <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-black mb-4">
-                {maintenance.name}
-              </h3>
-              <p className="text-xl text-gray-600">
-                {maintenance.description}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="mb-6">
-                  <span className="text-3xl font-black text-black">{maintenance.price}</span>
-                  <span className="text-gray-600 ml-2">{maintenance.period}</span>
+        {/* Site Sur Mesure et Forfait Maintenance sur la même ligne */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {/* Site Sur Mesure */}
+          {(() => {
+            const customPlan = plans.find(plan => plan.type === 'custom');
+            return customPlan ? (
+              <div className="relative bg-white rounded-2xl border-2 border-gray-200 shadow-lg p-8 flex flex-col">
+                <div className="text-center mb-8">
+                  <div className="flex items-center justify-center mb-2">
+                    {getPlanIcon(customPlan.type)}
+                    <h3 className="text-2xl font-bold text-black ml-3">{customPlan.name}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">{customPlan.description}</p>
+                  <div className="mb-6">
+                    <span className="text-4xl font-black text-black">{customPlan.price}</span>
+                    {customPlan.period && <span className="text-gray-600 ml-2">{customPlan.period}</span>}
+                  </div>
                 </div>
 
-                <ul className="space-y-3" role="list">
-                  {maintenance.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
+                <ul className="space-y-4 mb-8 flex-grow" role="list">
+                  {customPlan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center">
                       <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center mr-3 flex-shrink-0">
                         <Check className="w-3 h-3 text-white" />
                       </div>
@@ -115,20 +133,59 @@ const Pricing = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              <div className="text-center">
                 <button
-                  onClick={() => openForm('maintenance')}
-                  className="bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200"
+                  onClick={() => openForm('custom')}
+                  className={`w-full py-4 px-6 rounded-lg font-medium transition-all duration-200 ${customPlan.buttonStyle}`}
+                  aria-label={`${customPlan.buttonText} - ${customPlan.name}`}
                   type="button"
                 >
-                  {maintenance.buttonText}
+                  {customPlan.buttonText}
                 </button>
-                <p className="text-sm text-gray-600 mt-4">
-                  {maintenance.note}
-                </p>
               </div>
+            ) : null;
+          })()}
+
+          {/* Forfait Maintenance */}
+          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 flex flex-col">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center mb-4">
+                <Wrench className="w-8 h-8 text-red-600" />
+                <h3 className="text-2xl font-bold text-black ml-3">
+                  {maintenance.name}
+                </h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                {maintenance.description}
+              </p>
+              <div className="mb-2">
+                <span className="text-3xl font-black text-black">{maintenance.price}</span>
+                <span className="text-gray-600 ml-2">{maintenance.period}</span>
+              </div>
+              <p className="text-sm text-gray-600 mb-6">
+                {maintenance.note}
+              </p>
+            </div>
+
+            <ul className="space-y-3 mb-8 flex-grow" role="list">
+              {maintenance.features.map((feature, index) => (
+                <li key={index} className="flex items-center">
+                  <div className="w-5 h-5 bg-black rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-gray-700">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="text-center">
+              <button
+                onClick={() => openForm('maintenance')}
+                className="w-full bg-black text-white px-8 py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200"
+                type="button"
+              >
+                {maintenance.buttonText}
+              </button>
             </div>
           </div>
         </div>

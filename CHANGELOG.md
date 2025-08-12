@@ -7,6 +7,14 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.26.0] - 2025-08-12
+### Modifié
+- 🎨 **Section Pricing** : mise en page améliorée avec Site Sur Mesure et Forfait Maintenance côte à côte en desktop (50% chacun)
+- 🎯 **Alignement des boutons** : tous les boutons des cartes pricing sont maintenant alignés en bas grâce à Flexbox
+- 📍 **Position de la note tarifaire** : déplacement de "Tarif adapté selon la complexité de votre site" sous le prix du Forfait Maintenance
+- 🎨 **Icônes colorées** : ajout d'icônes distinctives avec couleurs pour chaque plan (bleu, vert, violet, orange, rouge)
+- 🏷️ **Icônes positionnées** : placement des icônes devant les titres pour une meilleure lisibilité
+
 ## [1.25.0] - 2025-08-12
 ### Corrigé
 - 🎨 **Icône de scroll** : centrage horizontal parfait avec animation personnalisée bounce-centered

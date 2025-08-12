@@ -134,10 +134,15 @@ export async function POST(request: NextRequest) {
     // Configuration du sujet selon le type de formulaire
     const getSubjectAndContent = () => {
       switch (formType) {
+        case 'onepage':
+          return {
+            subject: 'Nouvelle demande de devis - Site One Page',
+            subtitle: 'Formule Site One Page (690€ HT)'
+          };
         case 'vitrine':
           return {
             subject: 'Nouvelle demande de devis - Site Vitrine',
-            subtitle: 'Formule Site Vitrine (1 200€ HT)'
+            subtitle: 'Formule Site Vitrine (1 990€ HT)'
           };
         case 'eshop':
           return {

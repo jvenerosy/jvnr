@@ -67,7 +67,7 @@ Site minimaliste en page unique (single page) mettant en avant :
 1. **Hero** - Logo JVNR et présentation
 2. **À propos** - Expertise et statistiques
 3. **Services** - 4 domaines de compétence
-4. **Tarifs** - Grille tarifaire avec données JSON
+4. **Tarifs** - Grille tarifaire avec données JSON, icônes colorées et mise en page optimisée
 5. **Contact** - Formulaire de contact avec API route
 
 ### Optimisations Avancées
@@ -146,11 +146,12 @@ jvnr-site/
 
 ### Composants
 - Navigation fluide avec scroll smooth et section active
-- Boutons avec transitions hover
-- Cards avec bordures subtiles
+- Boutons avec transitions hover et alignement Flexbox
+- Cards avec bordures subtiles et icônes colorées distinctives
 - Formulaires avec validation
 - Animations et micro-interactions
-- Icônes Lucide React
+- Icônes Lucide React avec couleurs thématiques (bleu, vert, violet, orange, rouge)
+- Mise en page responsive optimisée (Site Sur Mesure et Forfait Maintenance côte à côte en desktop)
 
 ## 📊 Performance & SEO
 
