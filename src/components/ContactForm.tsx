@@ -174,22 +174,22 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-2xl w-full max-h-[85vh] overflow-y-auto animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
+        className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[85vh] overflow-y-auto animate-in zoom-in-95 slide-in-from-bottom-4 duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-2xl font-bold text-black">{config.title}</h3>
-              <p className="text-gray-600">{config.subtitle}</p>
+              <h3 className="text-2xl font-bold text-black dark:text-white">{config.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{config.subtitle}</p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               aria-label="Fermer le formulaire"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
           </div>
 
@@ -198,7 +198,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
             {/* Informations personnelles */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Nom complet *
                 </label>
                 <input
@@ -208,12 +208,12 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
                   placeholder="Votre nom"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email *
                 </label>
                 <input
@@ -223,7 +223,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -231,7 +231,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Téléphone
                 </label>
                 <input
@@ -240,12 +240,12 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
                   placeholder="06 12 34 56 78"
                 />
               </div>
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Entreprise
                 </label>
                 <input
@@ -254,7 +254,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
                   placeholder="Nom de votre entreprise"
                 />
               </div>
@@ -263,7 +263,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
             {/* Champs spécifiques selon le type */}
             {formType === 'maintenance' && (
               <div>
-                <label htmlFor="siteUrl" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="siteUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   URL de votre site actuel
                 </label>
                 <input
@@ -272,7 +272,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                   name="siteUrl"
                   value={formData.siteUrl}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
                   placeholder="https://votre-site.com"
                 />
               </div>
@@ -281,7 +281,7 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
 
             {/* Message */}
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Message
               </label>
               <textarea
@@ -290,19 +290,19 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
               />
             </div>
 
             {/* Submit button */}
             <div className="flex items-center justify-between pt-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 * Champs obligatoires
               </p>
               <button
                 type="submit"
                 disabled={isSubmitting || submitStatus === 'success' || submitStatus === 'rate-limited'}
-                className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="bg-black dark:bg-white text-white dark:text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
                 {isSubmitting ? (
                   'Envoi en cours...'

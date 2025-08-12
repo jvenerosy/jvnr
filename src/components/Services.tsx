@@ -51,13 +51,13 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 bg-white dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-h2">
             Services
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Des solutions complètes pour votre présence en ligne, 
             de la conception au déploiement
           </p>
@@ -69,31 +69,31 @@ const Services = () => {
             return (
               <div
                 key={index}
-                className="bg-gray-50 p-8 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 group"
+                className="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 group"
               >
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-800 transition-colors">
-                    <IconComponent className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-800 dark:group-hover:bg-gray-200 transition-colors">
+                    <IconComponent className="w-6 h-6 text-white dark:text-black" />
                   </div>
-                  <h3 className="text-2xl font-bold text-black group-hover:text-gray-700 transition-colors">
+                  <h3 className="text-2xl font-bold text-black dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
                     {service.title}
                   </h3>
                 </div>
                 
-                <p className="text-gray-700 mb-6 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   {service.description}
                 </p>
 
                 <ul className="space-y-3">
                   {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-gray-600">
-                      <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
+                    <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-400">
+                      <span className="w-2 h-2 bg-black dark:bg-white rounded-full mr-3 flex-shrink-0"></span>
                       {feature}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={() => {
                       const element = document.getElementById('contact');
@@ -101,7 +101,7 @@ const Services = () => {
                         element.scrollIntoView({ behavior: 'smooth' });
                       }
                     }}
-                    className="text-black font-medium hover:opacity-70 transition-opacity inline-flex items-center"
+                    className="text-black dark:text-white font-medium hover:opacity-70 transition-opacity inline-flex items-center"
                     aria-label={`Discuter du service ${service.title}`}
                   >
                     En savoir plus
@@ -115,11 +115,11 @@ const Services = () => {
 
         {/* Call to action */}
         <div className="text-center mt-16">
-          <div className="bg-black text-white p-8 rounded-lg">
-            <h3 className="text-2xl font-bold mb-4 text-white">
+          <div className="bg-black dark:bg-white text-white dark:text-black p-8 rounded-lg">
+            <h3 className="text-2xl font-bold mb-4 text-white dark:text-black">
               Prêt à démarrer votre projet ?
             </h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-300 dark:text-gray-600 mb-6 max-w-2xl mx-auto">
               Discutons de vos besoins et créons ensemble une solution 
               qui dépasse vos attentes.
             </p>
@@ -130,7 +130,7 @@ const Services = () => {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="bg-white text-black px-8 py-4 font-medium hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
+              className="bg-white dark:bg-black text-black dark:text-white px-8 py-4 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white dark:focus:ring-black focus:ring-offset-2 focus:ring-offset-black dark:focus:ring-offset-white"
               aria-label="Aller à la section contact"
             >
               Contactez-nous

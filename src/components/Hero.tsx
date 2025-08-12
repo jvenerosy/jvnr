@@ -13,7 +13,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center bg-white"
+      className="relative min-h-screen flex items-center justify-center bg-white dark:bg-gray-900"
       role="banner"
       aria-labelledby="hero-title"
     >
@@ -27,11 +27,11 @@ const Hero = () => {
         </h1>
         
         {/* Tagline */}
-        <p className="text-xl md:text-2xl font-medium text-gray-700 mb-6 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
           <strong>Créateur de solutions digitales</strong>
         </p>
         
-        <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
           Plus de <strong>15 ans d&apos;expérience</strong> dans la création de sites performants,
           optimisés pour le <strong>SEO</strong> et l&apos;<strong>accessibilité</strong>
         </p>
@@ -40,7 +40,7 @@ const Hero = () => {
         <nav className="flex flex-col sm:flex-row gap-4 justify-center items-center" aria-label="Actions principales">
           <button
             onClick={scrollToPricing}
-            className="bg-black text-white border-2 border-transparent px-8 py-4 text-lg font-medium hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+            className="bg-black dark:bg-white text-white dark:text-black border-2 border-transparent px-8 py-4 text-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             aria-label="Voir nos offres et tarifs"
             type="button"
           >
@@ -54,7 +54,7 @@ const Hero = () => {
                 element.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="text-black border-2 border-black px-8 py-4 text-lg font-medium hover:bg-black hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+            className="text-black dark:text-white border-2 border-black dark:border-white px-8 py-4 text-lg font-medium hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             aria-label="En savoir plus sur mes compétences et mon expérience"
             type="button"
           >
@@ -67,7 +67,7 @@ const Hero = () => {
           className="absolute bottom-8 left-1/2 animate-bounce-centered"
           aria-hidden="true"
         >
-          <ChevronsDown className="w-8 h-8 text-gray-600" />
+          <ChevronsDown className="w-8 h-8 text-gray-600 dark:text-gray-400" />
         </div>
       </div>
     </section>

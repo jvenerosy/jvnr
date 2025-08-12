@@ -5,7 +5,22 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
+  --primary: #000000;
+  --secondary: #6b7280;
+  --accent: #2563eb;
+  --muted: #f3f4f6;
+  --border: #e5e7eb;
   --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+.dark {
+  --background: #0f0f0f;
+  --foreground: #ffffff;
+  --primary: #ffffff;
+  --secondary: #9ca3af;
+  --accent: #3b82f6;
+  --muted: #1f1f1f;
+  --border: #374151;
 }
 
 /* Optimisations pour les performances et Core Web Vitals */
@@ -43,8 +58,26 @@ body {
   animation: gradientShift 4s ease-in-out infinite;
 }
 
+.dark .gradient-title {
+  background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
 .gradient-h1 {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 6s ease-in-out infinite;
+}
+
+.dark .gradient-h1 {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -61,6 +94,15 @@ body {
   animation: gradientPulse 5s ease-in-out infinite;
 }
 
+.dark .gradient-h2 {
+  background: linear-gradient(120deg, #f87171 0%, #fbbf24 50%, #f472b6 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientPulse 5s ease-in-out infinite;
+}
+
 .gradient-h3 {
   background: linear-gradient(110deg, #fa709a 0%, #fee140 50%, #ffecd2 100%);
   background-size: 280% 280%;
@@ -70,8 +112,26 @@ body {
   animation: gradientWave 7s ease-in-out infinite;
 }
 
+.dark .gradient-h3 {
+  background: linear-gradient(110deg, #f472b6 0%, #fbbf24 50%, #fde68a 100%);
+  background-size: 280% 280%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientWave 7s ease-in-out infinite;
+}
+
 .gradient-h4 {
   background: linear-gradient(100deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientRotate 8s linear infinite;
+}
+
+.dark .gradient-h4 {
+  background: linear-gradient(100deg, #67e8f9 0%, #fda4af 50%, #c084fc 100%);
   background-size: 220% 220%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -162,12 +222,22 @@ body {
   outline-offset: 2px;
 }
 
+.dark *:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
 *:focus:not(:focus-visible) {
   outline: none;
 }
 
 *:focus-visible {
   outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.dark *:focus-visible {
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
@@ -270,16 +340,32 @@ button:disabled {
   background-color: #000000 !important;
 }
 
+.dark .bg-black {
+  background-color: #ffffff !important;
+}
+
 .bg-white {
   background-color: #ffffff !important;
+}
+
+.dark .bg-white {
+  background-color: #1f2937 !important; /* gray-800 */
 }
 
 .text-white {
   color: #ffffff !important;
 }
 
+.dark .text-white {
+  color: #000000 !important;
+}
+
 .text-black {
   color: #000000 !important;
+}
+
+.dark .text-black {
+  color: #ffffff !important;
 }
 
 .border-2 {
@@ -288,6 +374,10 @@ button:disabled {
 
 .border-black {
   border-color: #000000 !important;
+}
+
+.dark .border-black {
+  border-color: #ffffff !important;
 }
 
 .border-transparent {
@@ -322,16 +412,32 @@ button:disabled {
   background-color: #262626 !important;
 }
 
+.dark .hover\:bg-gray-800:hover {
+  background-color: #d1d5db !important; /* gray-300 */
+}
+
 .hover\:bg-black:hover {
   background-color: #000000 !important;
+}
+
+.dark .hover\:bg-black:hover {
+  background-color: #ffffff !important;
 }
 
 .hover\:bg-gray-100:hover {
   background-color: #f5f5f5 !important;
 }
 
+.dark .hover\:bg-gray-100:hover {
+  background-color: #374151 !important; /* gray-700 */
+}
+
 .hover\:text-white:hover {
   color: #ffffff !important;
+}
+
+.dark .hover\:text-white:hover {
+  color: #000000 !important;
 }
 
 .transition-colors {
@@ -381,6 +487,11 @@ svg {
   padding-bottom: 0.25rem !important; /* pb-1 */
 }
 
+.dark .nav-active {
+  color: #3b82f6 !important; /* text-blue-500 en mode sombre */
+  border-bottom: 2px solid #3b82f6 !important; /* border-blue-500 */
+}
+
 .nav-inactive {
   transition: color 0.2s ease, opacity 0.2s ease !important;
 }
@@ -390,10 +501,18 @@ svg {
   opacity: 0.7 !important;
 }
 
+.dark .nav-inactive:hover {
+  color: #60a5fa !important; /* hover:text-blue-400 en mode sombre */
+}
+
 /* Styles spécifiques pour le logo actif */
 .logo-active {
   border-bottom: 2px solid #2563eb !important;
   padding-bottom: 0.25rem !important;
+}
+
+.dark .logo-active {
+  border-bottom: 2px solid #3b82f6 !important;
 }
 
 /* Animation bounce centrée pour l'icône de scroll */
@@ -411,3 +530,4 @@ svg {
 .animate-bounce-centered {
   animation: bounce-centered 1s infinite;
 }
+

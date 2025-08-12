@@ -7,6 +7,21 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.28.0] - 2025-08-12
+### Ajouté
+- 🌙 **Thème sombre complet** : Implémentation d'un mode sombre pour l'ensemble du site
+- 🎛️ **Bouton de basculement** : Icônes soleil/lune avec animation fluide dans le header
+- 🔧 **Hook useTheme** : Gestion du thème avec détection automatique de la préférence système
+- 💾 **Sauvegarde localStorage** : Mémorisation du choix utilisateur entre les sessions
+- 🎨 **Variables CSS adaptatives** : Couleurs automatiques selon le thème (clair/sombre)
+- ⚡ **Configuration Tailwind** : Support du mode sombre avec `darkMode: 'class'`
+
+### Modifié
+- 🎨 **Tous les composants** : Adaptation complète avec classes `dark:` pour Header, Hero, About, Services, Pricing, Contact, Footer, Modals
+- 🌈 **Dégradés optimisés** : Couleurs plus vives et contrastées spécifiquement pour le mode sombre
+- ♿ **Accessibilité** : Focus et navigation adaptés au mode sombre
+- 🔧 **Classes CSS globales** : Correction des `!important` qui écrasaient les classes Tailwind
+
 ## [1.27.0] - 2025-08-12
 ### Modifié
 - 🎯 **Bouton CTA Hero** : remplacement de "Discutons de votre projet" par "Voir nos offres"

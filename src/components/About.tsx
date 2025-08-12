@@ -4,7 +4,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 bg-gray-50"
+      className="py-20 bg-gray-50 dark:bg-gray-800"
       aria-labelledby="about-title"
     >
       <div className="max-w-6xl mx-auto px-6">
@@ -15,7 +15,7 @@ const About = () => {
           >
             À propos
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Passionnés par le <strong>développement</strong> depuis plus de <strong>15 ans</strong>,
             nous créons des expériences numériques exceptionnelles
           </p>
@@ -24,39 +24,39 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Contenu principal */}
           <article className="space-y-6">
-            <h3 className="text-2xl font-bold text-black mb-4">
+            <h3 className="text-2xl font-bold text-black dark:text-white mb-4">
               Une expertise forgée par l&apos;expérience
             </h3>
             
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               Déçu des promesses d&apos;un site « clé en main » avec IA ? Nous créons pour vous un site unique, optimisé et pensé pour vos objectifs, loin des modèles génériques.
             </p>
             <div className="pt-4">
-              <h4 className="text-lg font-semibold text-black mb-3">
+              <h4 className="text-lg font-semibold text-black dark:text-white mb-3">
                 Nos domaines d&apos;expertise :
               </h4>
-              <ul className="space-y-4 text-gray-700" role="list">
+              <ul className="space-y-4 text-gray-700 dark:text-gray-300" role="list">
                 <li className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
-                    <Code className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
+                    <Code className="w-4 h-4 text-white dark:text-black" />
                   </div>
                   <span><strong>Développement moderne</strong> (React, Next.js, TypeScript...)</span>
                 </li>
                 <li className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
-                    <Search className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
+                    <Search className="w-4 h-4 text-white dark:text-black" />
                   </div>
                   <span><strong>Optimisation SEO</strong> et performance web</span>
                 </li>
                 <li className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
-                    <Users className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
+                    <Users className="w-4 h-4 text-white dark:text-black" />
                   </div>
                   <span><strong>Accessibilité</strong> et expérience utilisateur</span>
                 </li>
                 <li className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
-                    <Zap className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-3 flex-shrink-0" aria-hidden="true">
+                    <Zap className="w-4 h-4 text-white dark:text-black" />
                   </div>
                   <span><strong>Architecture</strong> et scalabilité des applications</span>
                 </li>
@@ -68,24 +68,24 @@ const About = () => {
           <aside aria-labelledby="stats-title">
             <h3 id="stats-title" className="sr-only">Statistiques et chiffres clés</h3>
             <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-                <div className="text-3xl font-black text-black mb-2" aria-label="15 années d'expérience">15+</div>
-                <div className="text-sm font-medium text-gray-600">Années d&apos;expérience</div>
+              <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="15 années d'expérience">15+</div>
+                <div className="text-sm font-medium text-gray-600 dark:text-gray-300">Années d&apos;expérience</div>
               </div>
               
-              <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-                <div className="text-3xl font-black text-black mb-2" aria-label="Plus de 100 projets réalisés">100+</div>
-                <div className="text-sm font-medium text-gray-600">Projets réalisés</div>
+              <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="Plus de 100 projets réalisés">100+</div>
+                <div className="text-sm font-medium text-gray-600 dark:text-gray-300">Projets réalisés</div>
               </div>
               
-              <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-                <div className="text-3xl font-black text-black mb-2" aria-label="Expert SEO certifié">SEO</div>
-                <div className="text-sm font-medium text-gray-600">Expert certifié</div>
+              <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="Expert SEO certifié">SEO</div>
+                <div className="text-sm font-medium text-gray-600 dark:text-gray-300">Expert certifié</div>
               </div>
               
-              <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-                <div className="text-3xl font-black text-black mb-2" aria-label="Spécialiste accessibilité web">A11Y</div>
-                <div className="text-sm font-medium text-gray-600">Accessibilité</div>
+              <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="Spécialiste accessibilité web">A11Y</div>
+                <div className="text-sm font-medium text-gray-600 dark:text-gray-300">Accessibilité</div>
               </div>
             </div>
           </aside>

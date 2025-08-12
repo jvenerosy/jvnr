@@ -18,7 +18,7 @@ Site personnel professionnel présentant l'expertise de JVNR en création de sol
 Site minimaliste en page unique (single page) mettant en avant :
 - **Expertise** : 15+ années d'expérience en création de solutions digitales
 - **Services** : Développement, SEO, Performance, Accessibilité
-- **Design** : Épuré noir et blanc avec typographie Inter
+- **Design** : Épuré noir et blanc avec typographie Inter et thème sombre
 - **Contact** : Email et LinkedIn avec formulaire de contact
 
 ## 🚀 Technologies
@@ -56,9 +56,12 @@ Site minimaliste en page unique (single page) mettant en avant :
 ## 📱 Fonctionnalités
 
 ### Design
-- Design épuré noir et blanc
+- Design épuré noir et blanc avec **thème sombre complet**
+- **Bouton de basculement** soleil/lune avec animation fluide
+- **Détection automatique** de la préférence système utilisateur
+- **Sauvegarde** du choix de thème dans localStorage
 - Typographie Inter (Regular 400, Bold 700, Black 900)
-- Dégradés subtils sur les titres
+- Dégradés subtils sur les titres adaptés au mode sombre
 - Navigation fluide entre sections avec scroll smooth
 - Responsive design optimisé (mobile/desktop)
 - Animations et transitions fluides
@@ -133,9 +136,10 @@ jvnr-site/
 ## 🎨 Design System
 
 ### Couleurs
-- **Fond** : Blanc (#FFFFFF)
-- **Texte** : Noir (#000000)
-- **Dégradés** : Noir vers gris pour les titres
+- **Mode clair** : Fond blanc (#FFFFFF), texte noir (#000000)
+- **Mode sombre** : Fond gris foncé (#0f0f0f), texte blanc (#ffffff)
+- **Variables CSS** : Adaptation automatique selon le thème
+- **Dégradés** : Optimisés pour chaque mode (noir/gris en clair, couleurs vives en sombre)
 - **Theme Color** : #000000 (PWA)
 
 ### Typographie
@@ -145,10 +149,12 @@ jvnr-site/
 - **Variable CSS** : --font-inter
 
 ### Composants
+- **Thème sombre** : Tous les composants adaptés avec classes `dark:`
+- **ThemeToggle** : Bouton de basculement avec icônes soleil/lune animées
 - Navigation fluide avec scroll smooth et section active
 - Boutons avec transitions hover et alignement Flexbox
 - Cards avec bordures subtiles et icônes colorées distinctives
-- Formulaires avec validation
+- Formulaires avec validation et support du mode sombre
 - Animations et micro-interactions
 - Icônes Lucide React avec couleurs thématiques (bleu, vert, violet, orange, rouge)
 - Mise en page responsive optimisée (Site Sur Mesure et Forfait Maintenance côte à côte en desktop)
