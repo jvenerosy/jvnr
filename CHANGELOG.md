@@ -7,6 +7,12 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.27.0] - 2025-08-12
+### Modifié
+- 🎯 **Bouton CTA Hero** : remplacement de "Discutons de votre projet" par "Voir nos offres"
+- 🔗 **Navigation** : le bouton principal redirige maintenant vers la section pricing au lieu de contact
+- ♿ **Accessibilité** : mise à jour de l'aria-label pour refléter la nouvelle action
+
 ## [1.26.0] - 2025-08-12
 ### Modifié
 - 🎨 **Section Pricing** : mise en page améliorée avec Site Sur Mesure et Forfait Maintenance côte à côte en desktop (50% chacun)

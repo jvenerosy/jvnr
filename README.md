@@ -64,7 +64,7 @@ Site minimaliste en page unique (single page) mettant en avant :
 - Animations et transitions fluides
 
 ### Sections
-1. **Hero** - Logo JVNR et présentation
+1. **Hero** - Logo JVNR, présentation et bouton "Voir nos offres"
 2. **À propos** - Expertise et statistiques
 3. **Services** - 4 domaines de compétence
 4. **Tarifs** - Grille tarifaire avec données JSON, icônes colorées et mise en page optimisée

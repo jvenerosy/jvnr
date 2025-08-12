@@ -3,8 +3,8 @@
 import { ChevronsDown } from 'lucide-react';
 
 const Hero = () => {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
+  const scrollToPricing = () => {
+    const element = document.getElementById('pricing');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -39,12 +39,12 @@ const Hero = () => {
         {/* CTA */}
         <nav className="flex flex-col sm:flex-row gap-4 justify-center items-center" aria-label="Actions principales">
           <button
-            onClick={scrollToContact}
+            onClick={scrollToPricing}
             className="bg-black text-white border-2 border-transparent px-8 py-4 text-lg font-medium hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-            aria-label="Aller à la section contact pour discuter de votre projet"
+            aria-label="Voir nos offres et tarifs"
             type="button"
           >
-            Discutons de votre projet
+            Voir nos offres
           </button>
           
           <button
