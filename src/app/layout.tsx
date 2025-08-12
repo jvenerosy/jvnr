@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "JVNR - Créateur de solutions digitales",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og.png",
         width: 1200,
         height: 630,
         alt: "JVNR - Créateur de solutions digitales avec 15+ ans d'expérience",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "JVNR - Créateur de solutions digitales | 15+ ans d'expérience",
     description: "Créateur de solutions digitales spécialisé en SEO, performance et accessibilité. Plus de 15 ans d'expérience en développement React/Next.js.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-og.png"],
     creator: "@jvnr_dev",
   },
   robots: {
