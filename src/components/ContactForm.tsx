@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X, Send } from 'lucide-react';
+import { useScrollLock } from '@/hooks/useScrollLock';
 import pricingData from '../data/pricing.json';
 
 interface ContactFormProps {
@@ -11,6 +12,9 @@ interface ContactFormProps {
 }
 
 const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
+  // Bloquer le scroll quand la modal est ouverte
+  useScrollLock(isOpen);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

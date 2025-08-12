@@ -395,3 +395,19 @@ svg {
   border-bottom: 2px solid #2563eb !important;
   padding-bottom: 0.25rem !important;
 }
+
+/* Animation bounce centrée pour l'icône de scroll */
+@keyframes bounce-centered {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-25%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce-centered {
+  animation: bounce-centered 1s infinite;
+}

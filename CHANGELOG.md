@@ -7,6 +7,11 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.25.0] - 2025-08-12
+### Corrigé
+- 🎨 **Icône de scroll** : centrage horizontal parfait avec animation personnalisée bounce-centered
+- 🔧 **Animation CSS** : résolution du conflit entre transform et animate-bounce
+
 ## [1.24.0] - 2025-08-11
 ### Ajouté
 - 🔧 **Support de la maintenance** dans le générateur de contrats PDF

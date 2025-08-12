@@ -13,7 +13,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center bg-white"
+      className="relative min-h-screen flex items-center justify-center bg-white"
       role="banner"
       aria-labelledby="hero-title"
     >
@@ -64,7 +64,7 @@ const Hero = () => {
 
         {/* Indicateur de scroll */}
         <div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+          className="absolute bottom-8 left-1/2 animate-bounce-centered"
           aria-hidden="true"
         >
           <ChevronsDown className="w-8 h-8 text-gray-600" />
