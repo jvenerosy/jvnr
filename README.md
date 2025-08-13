@@ -74,7 +74,11 @@ Site minimaliste en page unique (single page) mettant en avant :
 5. **Contact** - Formulaire de contact avec API route
 
 ### Optimisations Avancées
-- ✅ **SEO complet** : Métadonnées, Open Graph, Twitter Cards, Schema.org
+- ✅ **SEO complet** : Métadonnées, Open Graph, Twitter Cards, 12 schémas Schema.org
+- ✅ **Rich Snippets** : Prix, avis, FAQ, actions utilisateur pour Google
+- ✅ **Local SEO** : Géolocalisation et optimisation recherches locales
+- ✅ **Sitemap enrichi** : Toutes sections et ancres avec priorités SEO
+- ✅ **Robots.txt professionnel** : Règles par moteur, blocage crawlers agressifs
 - ✅ **Performance** : Images WebP/AVIF, optimisations Next.js
 - ✅ **Accessibilité** : WCAG 2.1, navigation clavier, ARIA labels
 - ✅ **PWA Ready** : Manifest, favicons, theme-color
@@ -174,7 +178,11 @@ jvnr-site/
 - **Keywords** : 15 mots-clés stratégiques
 - **Open Graph** : Images 1200x630px
 - **Twitter Cards** : Summary large image
-- **Schema.org** : Données structurées complètes
+- **Schema.org** : 12 schémas JSON-LD (Person, Organization, Service, FAQ, Review, etc.)
+- **Sitemap.xml** : Navigation complète avec ancres spécifiques
+- **Robots.txt** : Optimisé pour tous les moteurs de recherche
+- **Rich Snippets** : Support prix, avis, FAQ, actions
+- **Local SEO** : Données géographiques et professionnelles
 
 ### Core Web Vitals
 - **LCP** : Optimisé avec images adaptatives

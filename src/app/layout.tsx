@@ -82,9 +82,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-    yahoo: "your-yahoo-verification-code",
+    google: "D-ew011sCC3-ng9TOFVR8CLMITIPnJo2XZIFw4F-srQ"
   },
   category: "technology",
 };

@@ -7,6 +7,22 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.30.0] - 2025-08-13
+### Ajouté
+- 🏗️ **Données structurées Schema.org complètes** : 12 schémas JSON-LD pour un SEO avancé
+- 📄 **Sitemap.xml enrichi** : Toutes les sections et ancres avec priorités SEO optimisées
+- 🤖 **Robots.txt professionnel** : Règles spécifiques par moteur de recherche et blocage des crawlers agressifs
+- ⚓ **Ancres SEO structurées** : Navigation fine pour services individuels et plans tarifaires
+- 🎯 **Rich Snippets** : Support des prix, avis, FAQ et actions utilisateur
+- 🌐 **Local SEO** : Géolocalisation et optimisation pour les recherches locales
+- 📊 **Knowledge Graph** : Données professionnelles et compétences techniques structurées
+
+### Modifié
+- 🏷️ **Balises sémantiques** : Ajout d'`<article>` et `<header>` pour une meilleure structure
+- ♿ **Accessibilité** : Attributs `aria-labelledby` et IDs uniques pour chaque élément
+- 🔍 **Navigation** : Ancres spécifiques pour chaque service et plan tarifaire
+- 📱 **Breadcrumb** : Structure hiérarchique complète incluant la section pricing
+
 ## [1.29.0] - 2025-08-12
 ### Ajouté
 - 🎨 **Favicons et icônes d'app** : Mise à jour complète du design des icônes

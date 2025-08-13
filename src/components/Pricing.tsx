@@ -52,15 +52,19 @@ const Pricing = () => {
 
         {/* Plans principaux (sans Site Sur Mesure) */}
         <div className="grid md:grid-cols-3 gap-12 md:gap-8 mb-16">
-          {plans.filter(plan => plan.type !== 'custom').map((plan, index) => (
-            <div
-              key={index}
-              className={`relative bg-white dark:bg-gray-800 rounded-2xl border-2 p-8 flex flex-col ${
-                plan.popular
-                  ? 'border-black dark:border-white shadow-2xl transform scale-105'
-                  : 'border-gray-200 dark:border-gray-700 shadow-lg'
-              }`}
-            >
+          {plans.filter(plan => plan.type !== 'custom').map((plan, index) => {
+            const planId = `plan-${plan.type}`;
+            return (
+              <article
+                key={index}
+                id={planId}
+                className={`relative bg-white dark:bg-gray-800 rounded-2xl border-2 p-8 flex flex-col ${
+                  plan.popular
+                    ? 'border-black dark:border-white shadow-2xl transform scale-105'
+                    : 'border-gray-200 dark:border-gray-700 shadow-lg'
+                }`}
+                aria-labelledby={`${planId}-title`}
+              >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-black dark:bg-white text-white dark:text-black px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap">
@@ -72,7 +76,7 @@ const Pricing = () => {
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center mb-2">
                   {getPlanIcon(plan.type)}
-                  <h3 className="text-2xl font-bold text-black dark:text-white ml-3">{plan.name}</h3>
+                  <h3 id={`${planId}-title`} className="text-2xl font-bold text-black dark:text-white ml-3">{plan.name}</h3>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">{plan.description}</p>
                 <div className="mb-6">
@@ -100,8 +104,9 @@ const Pricing = () => {
               >
                 {plan.buttonText}
               </button>
-            </div>
-          ))}
+            </article>
+          );
+          })}
         </div>
 
         {/* Site Sur Mesure et Forfait Maintenance sur la même ligne */}
@@ -110,11 +115,11 @@ const Pricing = () => {
           {(() => {
             const customPlan = plans.find(plan => plan.type === 'custom');
             return customPlan ? (
-              <div className="relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-lg p-8 flex flex-col">
+              <article id="plan-custom" className="relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-lg p-8 flex flex-col" aria-labelledby="plan-custom-title">
                 <div className="text-center mb-8">
                   <div className="flex items-center justify-center mb-2">
                     {getPlanIcon(customPlan.type)}
-                    <h3 className="text-2xl font-bold text-black dark:text-white ml-3">{customPlan.name}</h3>
+                    <h3 id="plan-custom-title" className="text-2xl font-bold text-black dark:text-white ml-3">{customPlan.name}</h3>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{customPlan.description}</p>
                   <div className="mb-6">
@@ -142,16 +147,16 @@ const Pricing = () => {
                 >
                   {customPlan.buttonText}
                 </button>
-              </div>
+              </article>
             ) : null;
           })()}
 
           {/* Forfait Maintenance */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 flex flex-col">
+          <article id="plan-maintenance" className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 flex flex-col" aria-labelledby="plan-maintenance-title">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center mb-4">
                 <Wrench className="w-8 h-8 text-red-600" />
-                <h3 className="text-2xl font-bold text-black dark:text-white ml-3">
+                <h3 id="plan-maintenance-title" className="text-2xl font-bold text-black dark:text-white ml-3">
                   {maintenance.name}
                 </h3>
               </div>
@@ -187,7 +192,7 @@ const Pricing = () => {
                 {maintenance.buttonText}
               </button>
             </div>
-          </div>
+          </article>
         </div>
 
         {/* Note importante */}

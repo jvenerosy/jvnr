@@ -1,39 +1,77 @@
 # Robots.txt pour JVNR - Créateur de solutions digitales
 # https://jvnr.fr
+# Dernière mise à jour: 2025-08-13
 
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap principal
 Sitemap: https://jvnr.fr/sitemap.xml
 
-# Disallow crawling of admin or private areas (if any in the future)
+# Disallow crawling of technical and private areas
 Disallow: /admin/
 Disallow: /private/
 Disallow: /_next/
 Disallow: /api/
+Disallow: /.well-known/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.env*
 
-# Allow all major search engines
+# Allow specific static assets
+Allow: /favicon.ico
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /manifest.json
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Specific rules for major search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
+Crawl-delay: 2
 
 User-agent: DuckDuckBot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Baiduspider
 Allow: /
+Crawl-delay: 2
 
 User-agent: YandexBot
 Allow: /
+Crawl-delay: 2
 
-# Crawl-delay for respectful crawling
+# Block aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Default crawl-delay for respectful crawling
 Crawl-delay: 1
 
-# Host directive (optional, for primary domain)
+# Host directive for primary domain
 Host: https://jvnr.fr

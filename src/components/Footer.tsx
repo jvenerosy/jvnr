@@ -3,6 +3,7 @@ const Footer = () => {
 
   return (
     <footer
+      id="footer"
       className="bg-black dark:bg-white text-white dark:text-black py-16"
       role="contentinfo"
       aria-label="Informations du site"

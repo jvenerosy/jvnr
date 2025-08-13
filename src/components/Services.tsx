@@ -51,31 +51,34 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white dark:bg-gray-900">
+    <section id="services" className="py-20 bg-white dark:bg-gray-900" aria-labelledby="services-title">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-h2">
+        <header className="text-center mb-16">
+          <h2 id="services-title" className="text-4xl md:text-5xl font-bold mb-6 gradient-h2">
             Services
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Des solutions complètes pour votre présence en ligne, 
+            Des solutions complètes pour votre présence en ligne,
             de la conception au déploiement
           </p>
-        </div>
+        </header>
 
         <div className="grid md:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const IconComponent = service.icon;
+            const serviceId = `service-${service.title.toLowerCase().replace(/\s+/g, '-').replace(/é/g, 'e').replace(/è/g, 'e')}`;
             return (
-              <div
+              <article
                 key={index}
+                id={serviceId}
                 className="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 group"
+                aria-labelledby={`${serviceId}-title`}
               >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-black dark:bg-white rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-800 dark:group-hover:bg-gray-200 transition-colors">
                     <IconComponent className="w-6 h-6 text-white dark:text-black" />
                   </div>
-                  <h3 className="text-2xl font-bold text-black dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+                  <h3 id={`${serviceId}-title`} className="text-2xl font-bold text-black dark:text-white group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
                     {service.title}
                   </h3>
                 </div>
@@ -84,7 +87,7 @@ const Services = () => {
                   {service.description}
                 </p>
 
-                <ul className="space-y-3">
+                <ul className="space-y-3" role="list">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-400">
                       <span className="w-2 h-2 bg-black dark:bg-white rounded-full mr-3 flex-shrink-0"></span>
@@ -108,7 +111,7 @@ const Services = () => {
                     <span className="ml-2">→</span>
                   </button>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

@@ -1,32 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Page principale -->
   <url>
     <loc>https://jvnr.fr/</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/" />
   </url>
+  
+  <!-- Section Hero -->
+  <url>
+    <loc>https://jvnr.fr/#hero</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#hero" />
+  </url>
+  
+  <!-- Section À propos -->
   <url>
     <loc>https://jvnr.fr/#about</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#about" />
   </url>
+  
+  <!-- Section Services -->
   <url>
     <loc>https://jvnr.fr/#services</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#services" />
   </url>
+  
+  <!-- Section Tarifs -->
+  <url>
+    <loc>https://jvnr.fr/#pricing</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#pricing" />
+  </url>
+  
+  <!-- Section Contact -->
   <url>
     <loc>https://jvnr.fr/#contact</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#contact" />
+  </url>
+  
+  <!-- Services individuels -->
+  <url>
+    <loc>https://jvnr.fr/#service-developpement</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#service-developpement" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#service-optimisation-seo</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#service-optimisation-seo" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#service-performance-web</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#service-performance-web" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#service-accessibilite</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#service-accessibilite" />
+  </url>
+  
+  <!-- Plans tarifaires -->
+  <url>
+    <loc>https://jvnr.fr/#plan-onepage</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#plan-onepage" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#plan-vitrine</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#plan-vitrine" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#plan-eshop</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#plan-eshop" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#plan-custom</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#plan-custom" />
+  </url>
+  
+  <url>
+    <loc>https://jvnr.fr/#plan-maintenance</loc>
+    <lastmod>2025-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jvnr.fr/#plan-maintenance" />
   </url>
 </urlset>
