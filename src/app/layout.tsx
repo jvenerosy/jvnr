@@ -96,6 +96,20 @@ export default function RootLayout({
     <html lang="fr">
       <head>
         <StructuredData />
+        
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0XZWR8HMLC"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-0XZWR8HMLC');
+            `,
+          }}
+        />
+        
         <link rel="manifest" href="/manifest.json" />
         
         {/* Favicons */}

@@ -7,6 +7,12 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Non publié]
 
+## [1.31.0] - 2025-08-13
+### Ajouté
+- 📊 **Google Analytics** : Intégration du code de suivi Google Analytics (gtag.js) avec l'ID G-0XZWR8HMLC
+- 🔍 **Analyse de trafic** : Collecte automatique des données de performance et de comportement utilisateur
+- 📈 **Suivi des conversions** : Monitoring des interactions et objectifs du site
+
 ## [1.30.0] - 2025-08-13
 ### Ajouté
 - 🏗️ **Données structurées Schema.org complètes** : 12 schémas JSON-LD pour un SEO avancé

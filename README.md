@@ -79,6 +79,7 @@ Site minimaliste en page unique (single page) mettant en avant :
 - ✅ **Local SEO** : Géolocalisation et optimisation recherches locales
 - ✅ **Sitemap enrichi** : Toutes sections et ancres avec priorités SEO
 - ✅ **Robots.txt professionnel** : Règles par moteur, blocage crawlers agressifs
+- ✅ **Google Analytics** : Suivi du trafic et analyse des performances avec gtag.js
 - ✅ **Performance** : Images WebP/AVIF, optimisations Next.js
 - ✅ **Accessibilité** : WCAG 2.1, navigation clavier, ARIA labels
 - ✅ **PWA Ready** : Manifest, favicons, theme-color
