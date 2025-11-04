@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, Send } from 'lucide-react';
 import { useScrollLock } from '@/hooks/useScrollLock';
-import pricingData from '../data/pricing.json';
+import pricingData from '@/data/pricing.json';
 
 interface ContactFormProps {
   isOpen: boolean;

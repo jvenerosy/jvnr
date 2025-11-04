@@ -1,10 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import pricingData from '@/data/pricing.json';
 
 // Cache en mémoire pour la limitation d'envoi (en production, utilisez Redis)
 const emailLimitCache = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes en millisecondes
 const MAX_EMAILS_PER_WINDOW = 2; // Maximum 2 emails par fenêtre de 15 minutes
+
+const pricingLookup: Record<string, { name: string; summary: string }> = (() => {
+  const lookup: Record<string, { name: string; summary: string }> = {};
+
+  pricingData.plans.forEach((plan) => {
+    lookup[plan.type] = {
+      name: plan.name,
+      summary: `${plan.name} (${plan.price}${plan.period ? ` ${plan.period}` : ''})`,
+    };
+  });
+
+  if (pricingData.maintenance) {
+    lookup.maintenance = {
+      name: pricingData.maintenance.name,
+      summary: `${pricingData.maintenance.name} (${pricingData.maintenance.price} ${pricingData.maintenance.period})`,
+    };
+  }
+
+  return lookup;
+})();
+
+const getPlanSummary = (planType: string) =>
+  pricingLookup[planType] ?? { name: 'Offre personnalisée', summary: 'Offre personnalisée' };
 
 // Fonction pour nettoyer le cache périodiquement
 function cleanupCache() {
@@ -137,17 +161,17 @@ export async function POST(request: NextRequest) {
         case 'onepage':
           return {
             subject: 'Nouvelle demande de devis - Site One Page',
-            subtitle: 'Formule Site One Page (690€ HT)'
+            subtitle: pricingLookup.onepage?.summary ?? 'Formule Site One Page',
           };
         case 'vitrine':
           return {
             subject: 'Nouvelle demande de devis - Site Vitrine',
-            subtitle: 'Formule Site Vitrine (1 990€ HT)'
+            subtitle: pricingLookup.vitrine?.summary ?? 'Formule Site Vitrine',
           };
         case 'eshop':
           return {
             subject: 'Nouvelle demande de devis - Site E-shop',
-            subtitle: 'Formule Site E-shop (4 000€ HT)'
+            subtitle: pricingLookup.eshop?.summary ?? 'Formule Site E-shop',
           };
         case 'custom':
           return {
@@ -157,7 +181,7 @@ export async function POST(request: NextRequest) {
         case 'maintenance':
           return {
             subject: 'Nouvelle demande de devis - Forfait Maintenance',
-            subtitle: 'À partir de 99€/mois HT'
+            subtitle: pricingLookup.maintenance?.summary ?? 'Forfait Maintenance',
           };
         default:
           return {
@@ -202,6 +226,8 @@ export async function POST(request: NextRequest) {
     });
 
     // Template HTML pour l'email
+    const planSummary = getPlanSummary(formType);
+
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -239,6 +265,9 @@ export async function POST(request: NextRequest) {
               <div class="info-row">
                 <span class="label">Entreprise :</span> ${company || 'Non renseignée'}
               </div>
+              <div class="info-row">
+                <span class="label">Offre :</span> ${planSummary.summary}
+              </div>
               ${siteUrl ? `
               <div class="info-row">
                 <span class="label">URL du site :</span> ${siteUrl}
@@ -273,6 +302,7 @@ Informations du contact :
 - Email : ${email}
 - Téléphone : ${phone || 'Non renseigné'}
 - Entreprise : ${company || 'Non renseignée'}
+ - Offre : ${planSummary.summary}
 ${siteUrl ? `- URL du site : ${siteUrl}` : ''}
 
 ${message ? `Message :\n${message}` : ''}

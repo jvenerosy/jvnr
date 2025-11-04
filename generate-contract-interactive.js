@@ -3,27 +3,23 @@ const readline = require('readline');
 const fs = require('fs');
 const path = require('path');
 
-// Charger les données de pricing depuis le fichier JSON
-let pricingData;
-try {
-  const pricingPath = path.join(__dirname, 'src', 'data', 'pricing.json');
-  const pricingContent = fs.readFileSync(pricingPath, 'utf8');
-  pricingData = JSON.parse(pricingContent);
-} catch (error) {
-  console.error('❌ Erreur lors du chargement des données de pricing :', error.message);
-  console.log('📁 Tentative de chargement depuis le répertoire courant...');
-  
-  // Fallback : essayer depuis le répertoire courant
-  try {
-    const fallbackPath = path.join(process.cwd(), 'src', 'data', 'pricing.json');
-    const pricingContent = fs.readFileSync(fallbackPath, 'utf8');
-    pricingData = JSON.parse(pricingContent);
-    console.log('✅ Données de pricing chargées avec succès depuis le répertoire courant');
-  } catch (fallbackError) {
-    console.error('❌ Impossible de charger les données de pricing :', fallbackError.message);
-    process.exit(1);
+const loadPricingData = () => {
+  const candidates = [
+    path.join(__dirname, 'src', 'data', 'pricing.json'),
+    path.join(process.cwd(), 'src', 'data', 'pricing.json'),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      const content = fs.readFileSync(candidate, 'utf8');
+      return JSON.parse(content);
+    }
   }
-}
+
+  throw new Error('Impossible de charger src/data/pricing.json');
+};
+
+const pricingData = loadPricingData();
 
 class ContractPDFGenerator {
   constructor() {
