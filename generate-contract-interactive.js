@@ -77,6 +77,8 @@ class ContractPDFGenerator {
     yPos += 5;
     doc.text('Créateur de solutions digitales', this.margin, yPos);
     yPos += 5;
+    doc.text('SIRET : 53273637800029', this.margin, yPos);
+    yPos += 5;
     doc.text('Email : contact@jvnr.fr', this.margin, yPos);
     yPos += 5;
     doc.text('Site web : https://jvnr.fr', this.margin, yPos);
@@ -90,6 +92,10 @@ class ContractPDFGenerator {
     doc.setFont('helvetica', 'normal');
     doc.text(contractData.clientName, rightColumnX, yPos);
     yPos += 5;
+    if (contractData.clientSiret) {
+      doc.text(`SIRET : ${contractData.clientSiret}`, rightColumnX, yPos);
+      yPos += 5;
+    }
     doc.text(contractData.clientEmail, rightColumnX, yPos);
     yPos += 5;
     
@@ -419,6 +425,8 @@ class MaintenanceContractPDFGenerator {
     yPos += 5;
     doc.text('Créateur de solutions digitales', this.margin, yPos);
     yPos += 5;
+    doc.text('SIRET : 53273637800029', this.margin, yPos);
+    yPos += 5;
     doc.text('Email : contact@jvnr.fr', this.margin, yPos);
     yPos += 5;
     doc.text('Site web : https://jvnr.fr', this.margin, yPos);
@@ -432,6 +440,10 @@ class MaintenanceContractPDFGenerator {
     doc.setFont('helvetica', 'normal');
     doc.text(contractData.clientName, rightColumnX, yPos);
     yPos += 5;
+    if (contractData.clientSiret) {
+      doc.text(`SIRET : ${contractData.clientSiret}`, rightColumnX, yPos);
+      yPos += 5;
+    }
     doc.text(contractData.clientEmail, rightColumnX, yPos);
     yPos += 5;
     
@@ -511,6 +523,119 @@ class MaintenanceContractPDFGenerator {
     return yPos + boxHeight + 10;
   }
 
+  addPaymentSchedule(doc, startYPos, contractData) {
+    let yPos = startYPos;
+    
+    // Titre de la section
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('ÉCHÉANCIER DE PAIEMENT', this.margin, yPos);
+    
+    yPos += 10;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    
+    // Calculer le prix
+    let price = 0;
+    if (contractData.plan.price !== 'Sur devis') {
+      price = parseFloat(contractData.plan.price.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+    }
+    
+    if (price > 0) {
+      const duration = contractData.plan.duration || 12;
+      const isOneTimePayment = contractData.plan.isOneTimePayment;
+      const isPriceTTC = contractData.plan.isPriceTTC;
+      
+      // Calculer les prix HT et TTC selon le type de prix saisi
+      let priceHT, priceTTC;
+      if (isPriceTTC) {
+        priceTTC = price;
+        priceHT = Math.round(price / 1.2);
+      } else {
+        priceHT = price;
+        priceTTC = Math.round(price * 1.2);
+      }
+      
+      if (isOneTimePayment) {
+        // Paiement en une fois
+        doc.text('Paiement unique :', this.margin, yPos);
+        yPos += 8;
+        
+        const paymentDate = new Date();
+        paymentDate.setDate(paymentDate.getDate() + 30); // 30 jours après signature
+        
+        const formattedDate = paymentDate.toLocaleDateString('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+        
+        doc.text(`• ${formattedDate} - Paiement intégral : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC)`, this.margin + 5, yPos);
+        yPos += 8;
+        
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Montant total : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC) pour ${duration} mois`, this.margin, yPos);
+        
+      } else {
+        // Paiement mensuel (comportement existant)
+        const startDate = new Date();
+        
+        doc.text('Échéances mensuelles :', this.margin, yPos);
+        yPos += 8;
+        
+        for (let i = 0; i < Math.min(duration, 12); i++) { // Afficher max 12 mois pour éviter débordement
+          const paymentDate = new Date(startDate);
+          paymentDate.setMonth(paymentDate.getMonth() + i + 1);
+          paymentDate.setDate(1); // Premier du mois
+          
+          const formattedDate = paymentDate.toLocaleDateString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+          
+          const monthName = paymentDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+          
+          // Vérifier l'espace disponible
+          if (yPos > this.pageHeight - 40) {
+            doc.addPage();
+            yPos = 30;
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ÉCHÉANCIER DE PAIEMENT (suite)', this.margin, yPos);
+            yPos += 15;
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+          }
+          
+          doc.text(`• ${formattedDate} - ${monthName} : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC)`, this.margin + 5, yPos);
+          yPos += 5;
+        }
+        
+        if (duration > 12) {
+          yPos += 3;
+          doc.setFont('helvetica', 'italic');
+          doc.text(`... et ainsi de suite pour les ${duration - 12} mois restants`, this.margin + 5, yPos);
+          yPos += 5;
+          doc.setFont('helvetica', 'normal');
+        }
+        
+        yPos += 8;
+        doc.setFont('helvetica', 'bold');
+        const totalHT = Math.round(priceHT * duration);
+        const totalTTC = Math.round(priceTTC * duration);
+        doc.text(`Total sur ${duration} mois : ${totalHT}€ HT (${totalTTC}€ TTC)`, this.margin, yPos);
+      }
+      
+    } else {
+      doc.text('Échéancier à définir selon devis personnalisé', this.margin, yPos);
+      yPos += 5;
+    }
+    
+    return yPos + 15;
+  }
+
   addMaintenanceTerms(doc, startYPos, contractData) {
     let yPos = startYPos || 250;
     
@@ -534,8 +659,8 @@ class MaintenanceContractPDFGenerator {
       '1. OBJET DU CONTRAT',
       'Le présent contrat a pour objet la maintenance préventive et corrective du site web du client selon les modalités définies ci-dessous.',
       '',
-      '2. DURÉE ET RECONDUCTION',
-      `Le contrat est conclu pour une durée de ${contractData.plan.duration} mois à compter de la signature. Il se renouvelle tacitement par périodes de 12 mois sauf dénonciation par l'une des parties avec un préavis de 2 mois.`,
+      '2. DURÉE DU CONTRAT',
+      `Le contrat est conclu pour une durée ferme de ${contractData.plan.duration} mois à compter de la signature. À l'échéance, le contrat prend fin automatiquement sans reconduction.`,
       '',
       '3. PRESTATIONS INCLUSES',
       '• Mises à jour de sécurité régulières',
@@ -546,7 +671,9 @@ class MaintenanceContractPDFGenerator {
       '• Modifications mineures de contenu (2h/mois incluses)',
       '',
       '4. MODALITÉS DE PAIEMENT',
-      `Le tarif de la maintenance est de ${contractData.plan.price}${contractData.plan.period}. Le paiement s'effectue mensuellement par prélèvement automatique ou virement, le 1er de chaque mois.`,
+      contractData.plan.isOneTimePayment
+        ? `Le tarif de la maintenance est de ${contractData.plan.price}${contractData.plan.period}. Le paiement s'effectue en une seule fois dans les 30 jours suivant la signature du contrat.`
+        : `Le tarif de la maintenance est de ${contractData.plan.price}${contractData.plan.period}. Le paiement s'effectue mensuellement par prélèvement automatique ou virement, le 1er de chaque mois selon l'échéancier défini.`,
       '',
       '5. OBLIGATIONS DU CLIENT',
       'Le client s\'engage à fournir les accès nécessaires et à signaler rapidement tout dysfonctionnement. Il reste responsable du contenu publié sur son site.',
@@ -554,8 +681,8 @@ class MaintenanceContractPDFGenerator {
       '6. RESPONSABILITÉS ET GARANTIES',
       'JVNR s\'engage à maintenir le site en état de fonctionnement optimal. La garantie de disponibilité est de 99,5% hors maintenance programmée.',
       '',
-      '7. RÉSILIATION',
-      'Chaque partie peut résilier le contrat avec un préavis de 2 mois. En cas de non-paiement, JVNR peut suspendre les services après mise en demeure restée sans effet pendant 15 jours.'
+      '7. RÉSILIATION ANTICIPÉE',
+      'Chaque partie peut résilier le contrat de manière anticipée avec un préavis de 2 mois. En cas de non-paiement, JVNR peut suspendre les services après mise en demeure restée sans effet pendant 15 jours.'
     ];
     
     for (const term of terms) {
@@ -710,6 +837,8 @@ class MaintenanceInvoicePDFGenerator {
     yPos += 5;
     doc.text('Créateur de solutions digitales', this.margin, yPos);
     yPos += 5;
+    doc.text('SIRET : 53273637800029', this.margin, yPos);
+    yPos += 5;
     doc.text('Email : contact@jvnr.fr', this.margin, yPos);
     yPos += 5;
     doc.text('Site web : https://jvnr.fr', this.margin, yPos);
@@ -723,6 +852,10 @@ class MaintenanceInvoicePDFGenerator {
     doc.setFont('helvetica', 'normal');
     doc.text(contractData.clientName, rightColumnX, yPos);
     yPos += 5;
+    if (contractData.clientSiret) {
+      doc.text(`SIRET : ${contractData.clientSiret}`, rightColumnX, yPos);
+      yPos += 5;
+    }
     doc.text(contractData.clientEmail, rightColumnX, yPos);
     yPos += 5;
     
@@ -754,6 +887,19 @@ class MaintenanceInvoicePDFGenerator {
     let finalPrice = 0;
     if (contractData.plan.price !== 'Sur devis') {
       finalPrice = parseFloat(contractData.plan.price.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+    }
+    
+    // Calculer les prix HT et TTC selon le type de prix saisi
+    let priceHT, priceTTC;
+    if (finalPrice > 0) {
+      const isPriceTTC = contractData.plan.isPriceTTC;
+      if (isPriceTTC) {
+        priceTTC = finalPrice;
+        priceHT = Math.round(finalPrice / 1.2);
+      } else {
+        priceHT = finalPrice;
+        priceTTC = Math.round(finalPrice * 1.2);
+      }
     }
     
     // Titre
@@ -798,8 +944,8 @@ class MaintenanceInvoicePDFGenerator {
     doc.text('1', this.margin + colWidths[0] + 2, yPos + 5);
     
     if (finalPrice > 0) {
-      doc.text(`${Math.round(finalPrice)}€`, this.margin + colWidths[0] + colWidths[1] + 2, yPos + 5);
-      doc.text(`${Math.round(finalPrice)}€`, this.margin + colWidths[0] + colWidths[1] + colWidths[2] + 2, yPos + 5);
+      doc.text(`${Math.round(priceHT)}€`, this.margin + colWidths[0] + colWidths[1] + 2, yPos + 5);
+      doc.text(`${Math.round(priceHT)}€`, this.margin + colWidths[0] + colWidths[1] + colWidths[2] + 2, yPos + 5);
     } else {
       doc.text('Sur devis', this.margin + colWidths[0] + colWidths[1] + 2, yPos + 5);
       doc.text('Sur devis', this.margin + colWidths[0] + colWidths[1] + colWidths[2] + 2, yPos + 5);
@@ -819,21 +965,133 @@ class MaintenanceInvoicePDFGenerator {
       
       doc.setFont('helvetica', 'bold');
       doc.text('Total HT :', totalX, yPos);
-      doc.text(`${Math.round(finalPrice)}€`, totalX + 30, yPos);
+      doc.text(`${Math.round(priceHT)}€`, totalX + 30, yPos);
       
       yPos += 6;
-      const tva = Math.round(finalPrice * 0.20);
+      const tva = Math.round(priceTTC - priceHT);
       doc.text('TVA 20% :', totalX, yPos);
       doc.text(`${tva}€`, totalX + 30, yPos);
       
       yPos += 6;
-      const totalTTC = Math.round(finalPrice) + tva;
       doc.setFontSize(12);
       doc.text('Total TTC :', totalX, yPos);
-      doc.text(`${totalTTC}€`, totalX + 30, yPos);
+      doc.text(`${Math.round(priceTTC)}€`, totalX + 30, yPos);
     }
     
     return yPos + 20;
+  }
+
+  addPaymentSchedule(doc, startYPos, contractData) {
+    let yPos = startYPos;
+    
+    // Titre de la section
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(0, 0, 0);
+    doc.text('ÉCHÉANCIER DE PAIEMENT', this.margin, yPos);
+    
+    yPos += 10;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    
+    // Calculer le prix
+    let price = 0;
+    if (contractData.plan.price !== 'Sur devis') {
+      price = parseFloat(contractData.plan.price.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+    }
+    
+    if (price > 0) {
+      const duration = contractData.plan.duration || 12;
+      const isOneTimePayment = contractData.plan.isOneTimePayment;
+      const isPriceTTC = contractData.plan.isPriceTTC;
+      
+      // Calculer les prix HT et TTC selon le type de prix saisi
+      let priceHT, priceTTC;
+      if (isPriceTTC) {
+        priceTTC = price;
+        priceHT = Math.round(price / 1.2);
+      } else {
+        priceHT = price;
+        priceTTC = Math.round(price * 1.2);
+      }
+      
+      if (isOneTimePayment) {
+        // Paiement en une fois
+        doc.text('Paiement unique :', this.margin, yPos);
+        yPos += 8;
+        
+        const paymentDate = new Date();
+        paymentDate.setDate(paymentDate.getDate() + 30); // 30 jours après facturation
+        
+        const formattedDate = paymentDate.toLocaleDateString('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+        
+        doc.text(`• ${formattedDate} - Paiement intégral : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC)`, this.margin + 5, yPos);
+        yPos += 8;
+        
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Montant total : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC) pour ${duration} mois`, this.margin, yPos);
+        
+      } else {
+        // Paiement mensuel (comportement existant)
+        const startDate = new Date();
+        
+        doc.text('Échéances mensuelles :', this.margin, yPos);
+        yPos += 8;
+        
+        for (let i = 0; i < Math.min(duration, 12); i++) { // Afficher max 12 mois pour éviter débordement
+          const paymentDate = new Date(startDate);
+          paymentDate.setMonth(paymentDate.getMonth() + i + 1);
+          paymentDate.setDate(1); // Premier du mois
+          
+          const formattedDate = paymentDate.toLocaleDateString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+          
+          const monthName = paymentDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+          
+          // Vérifier l'espace disponible
+          if (yPos > this.pageHeight - 40) {
+            doc.addPage();
+            yPos = 30;
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ÉCHÉANCIER DE PAIEMENT (suite)', this.margin, yPos);
+            yPos += 15;
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+          }
+          
+          doc.text(`• ${formattedDate} - ${monthName} : ${Math.round(priceHT)}€ HT (${Math.round(priceTTC)}€ TTC)`, this.margin + 5, yPos);
+          yPos += 5;
+        }
+        
+        if (duration > 12) {
+          yPos += 3;
+          doc.setFont('helvetica', 'italic');
+          doc.text(`... et ainsi de suite pour les ${duration - 12} mois restants`, this.margin + 5, yPos);
+          yPos += 5;
+          doc.setFont('helvetica', 'normal');
+        }
+        
+        yPos += 8;
+        doc.setFont('helvetica', 'bold');
+        const totalHT = Math.round(priceHT * duration);
+        const totalTTC = Math.round(priceTTC * duration);
+        doc.text(`Total sur ${duration} mois : ${totalHT}€ HT (${totalTTC}€ TTC)`, this.margin, yPos);
+      }
+      
+    } else {
+      doc.text('Échéancier à définir selon devis personnalisé', this.margin, yPos);
+      yPos += 5;
+    }
+    
+    return yPos + 15;
   }
 
   addPaymentTerms(doc, startYPos, contractData) {
@@ -847,11 +1105,15 @@ class MaintenanceInvoicePDFGenerator {
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     
-    doc.text('• Paiement mensuel par prélèvement automatique ou virement', this.margin, yPos);
-    yPos += 5;
-    doc.text('• Échéance le 1er de chaque mois', this.margin, yPos);
-    yPos += 5;
-    doc.text('• Pénalités de retard : 3 fois le taux légal', this.margin, yPos);
+    if (contractData.plan.isOneTimePayment) {
+      doc.text('• Paiement unique dans les 30 jours suivant la facturation', this.margin, yPos);
+      yPos += 5;
+      doc.text('• Virement bancaire ou chèque', this.margin, yPos);
+    } else {
+      doc.text('• Paiement mensuel par prélèvement automatique ou virement', this.margin, yPos);
+      yPos += 5;
+      doc.text('• Échéance le 1er de chaque mois', this.margin, yPos);
+    }
     
     return yPos + 15;
   }
@@ -877,7 +1139,8 @@ class MaintenanceInvoicePDFGenerator {
     this.addInvoiceTitle(doc, invoiceNumber);
     this.addInvoiceInfo(doc, contractData, invoiceNumber);
     const nextYPos = this.addInvoiceDetails(doc, contractData);
-    this.addPaymentTerms(doc, nextYPos, contractData);
+    const scheduleEndPos = this.addPaymentSchedule(doc, nextYPos + 10, contractData);
+    this.addPaymentTerms(doc, scheduleEndPos + 10, contractData);
     this.addFooter(doc);
     
     return doc;
@@ -957,6 +1220,8 @@ class InvoicePDFGenerator {
     yPos += 5;
     doc.text('Créateur de solutions digitales', this.margin, yPos);
     yPos += 5;
+    doc.text('SIRET : 53273637800029', this.margin, yPos);
+    yPos += 5;
     doc.text('Email : contact@jvnr.fr', this.margin, yPos);
     yPos += 5;
     doc.text('Site web : https://jvnr.fr', this.margin, yPos);
@@ -970,6 +1235,10 @@ class InvoicePDFGenerator {
     doc.setFont('helvetica', 'normal');
     doc.text(contractData.clientName, rightColumnX, yPos);
     yPos += 5;
+    if (contractData.clientSiret) {
+      doc.text(`SIRET : ${contractData.clientSiret}`, rightColumnX, yPos);
+      yPos += 5;
+    }
     doc.text(contractData.clientEmail, rightColumnX, yPos);
     yPos += 5;
     
@@ -1162,23 +1431,107 @@ async function generateMaintenanceContract() {
     console.log(`${pricingData.maintenance.name} - ${pricingData.maintenance.price}${pricingData.maintenance.period}`);
     console.log(`${pricingData.maintenance.description}\n`);
     
-    // Prix personnalisé pour la maintenance
-    const customPrice = await askQuestion('Prix mensuel de la maintenance (en euros, sans €) : ');
+    // Mode de paiement de la maintenance
+    console.log('💰 Mode de paiement :');
+    console.log('1. Paiement mensuel');
+    console.log('2. Paiement en une fois');
+    
+    const paymentModeChoice = await askQuestion('Choisissez le mode de paiement (1 ou 2) : ');
+    const isOneTimePayment = paymentModeChoice === '2';
+    
+    // Choix HT ou TTC
+    console.log('\n💰 Type de prix :');
+    console.log('1. Prix HT (Hors Taxes)');
+    console.log('2. Prix TTC (Toutes Taxes Comprises)');
+    
+    const priceTypeChoice = await askQuestion('Le prix saisi sera-t-il HT ou TTC ? (1 ou 2) : ');
+    const isPriceTTC = priceTypeChoice === '2';
+    
     let maintenancePrice = 'Sur devis';
-    if (customPrice && !isNaN(customPrice)) {
-      maintenancePrice = `${parseInt(customPrice)}€`;
+    let contractDuration = 12;
+    
+    if (isOneTimePayment) {
+      // Paiement en une fois
+      console.log('\n💳 Paiement en une fois sélectionné');
+      
+      // Durée du contrat
+      const duration = await askQuestion('Durée du contrat de maintenance (en mois, ex: 12) : ');
+      if (duration && !isNaN(duration)) {
+        contractDuration = parseInt(duration);
+      }
+      
+      // Prix total pour la durée complète
+      const totalPrice = await askQuestion(`Prix total pour ${contractDuration} mois de maintenance (en euros, sans €, ${isPriceTTC ? 'TTC' : 'HT'}) : `);
+      if (totalPrice && !isNaN(totalPrice)) {
+        maintenancePrice = `${parseInt(totalPrice)}€`;
+      }
+    } else {
+      // Paiement mensuel (comportement existant)
+      console.log('\n📅 Paiement mensuel sélectionné');
+      
+      // Prix mensuel pour la maintenance
+      const customPrice = await askQuestion(`Prix mensuel de la maintenance (en euros, sans €, ${isPriceTTC ? 'TTC' : 'HT'}) : `);
+      if (customPrice && !isNaN(customPrice)) {
+        maintenancePrice = `${parseInt(customPrice)}€`;
+      }
+      
+      // Durée du contrat
+      const duration = await askQuestion('Durée du contrat de maintenance (en mois, ex: 12) : ');
+      if (duration && !isNaN(duration)) {
+        contractDuration = parseInt(duration);
+      }
     }
     
-    // Durée du contrat
-    const duration = await askQuestion('Durée du contrat de maintenance (en mois, ex: 12) : ');
-    let contractDuration = 12;
-    if (duration && !isNaN(duration)) {
-      contractDuration = parseInt(duration);
+    // Personnalisation des prestations de maintenance
+    console.log('\n🛠️ Personnalisation des prestations de maintenance :');
+    console.log('Prestations par défaut :');
+    pricingData.maintenance.features.forEach((feature, index) => {
+      console.log(`${index + 1}. ${feature}`);
+    });
+    
+    let customFeatures = [...pricingData.maintenance.features];
+    
+    const modifyFeatures = await askQuestion('\nSouhaitez-vous modifier les prestations ? (o/N) : ');
+    if (modifyFeatures.toLowerCase() === 'o' || modifyFeatures.toLowerCase() === 'oui') {
+      
+      // Supprimer des prestations
+      const removeFeatures = await askQuestion('Souhaitez-vous supprimer des prestations ? (o/N) : ');
+      if (removeFeatures.toLowerCase() === 'o' || removeFeatures.toLowerCase() === 'oui') {
+        console.log('\nPrestations actuelles :');
+        customFeatures.forEach((feature, index) => {
+          console.log(`${index + 1}. ${feature}`);
+        });
+        
+        const toRemove = await askQuestion('Numéros des prestations à supprimer (séparés par des virgules, ex: 1,3) : ');
+        if (toRemove.trim()) {
+          const indices = toRemove.split(',').map(n => parseInt(n.trim()) - 1).filter(i => i >= 0 && i < customFeatures.length);
+          // Supprimer en ordre décroissant pour éviter les problèmes d'index
+          indices.sort((a, b) => b - a).forEach(index => {
+            customFeatures.splice(index, 1);
+          });
+          console.log(`✅ ${indices.length} prestation(s) supprimée(s)`);
+        }
+      }
+      
+      // Ajouter des prestations
+      const addFeatures = await askQuestion('Souhaitez-vous ajouter des prestations ? (o/N) : ');
+      if (addFeatures.toLowerCase() === 'o' || addFeatures.toLowerCase() === 'oui') {
+        console.log('\nAjout de nouvelles prestations (appuyez sur Entrée après chaque prestation, ligne vide pour terminer) :');
+        let newFeature;
+        do {
+          newFeature = await askQuestion('> ');
+          if (newFeature.trim()) {
+            customFeatures.push(newFeature.trim());
+            console.log(`✅ Ajouté : ${newFeature.trim()}`);
+          }
+        } while (newFeature.trim());
+      }
     }
     
     // Informations du client
     console.log('\n👤 Informations du client :');
     const clientName = await askQuestion('Nom du client (ou raison sociale) : ');
+    const clientSiret = await askQuestion('SIRET du client (optionnel) : ');
     const clientEmail = await askQuestion('Email du client : ');
     
     console.log('\n📍 Adresse du client (appuyez sur Entrée après chaque ligne, ligne vide pour terminer) :');
@@ -1206,11 +1559,16 @@ async function generateMaintenanceContract() {
     // Créer un plan de maintenance personnalisé
     const maintenancePlan = {
       ...pricingData.maintenance,
+      features: customFeatures,
       price: maintenancePrice,
-      period: '/mois HT',
+      period: isOneTimePayment
+        ? ` ${isPriceTTC ? 'TTC' : 'HT'} (paiement unique)`
+        : `/mois ${isPriceTTC ? 'TTC' : 'HT'}`,
       type: 'maintenance',
       duration: contractDuration,
-      websiteUrl: websiteUrl || null
+      websiteUrl: websiteUrl || null,
+      isOneTimePayment: isOneTimePayment,
+      isPriceTTC: isPriceTTC
     };
     
     // Génération du contrat
@@ -1219,6 +1577,7 @@ async function generateMaintenanceContract() {
     const contractData = {
       plan: maintenancePlan,
       clientName,
+      clientSiret: clientSiret.trim() || null,
       clientEmail,
       clientAddress,
       contractDate: formatDate(new Date()),
@@ -1245,7 +1604,11 @@ async function generateMaintenanceContract() {
     console.log(`📄 Fichier : ${filepath}`);
     console.log(`📋 N° de contrat : ${contractData.contractNumber}`);
     console.log(`👤 Client : ${clientName}`);
-    console.log(`🔧 Maintenance : ${maintenancePrice}/mois pour ${contractDuration} mois`);
+    if (clientSiret.trim()) {
+      console.log(`🏢 SIRET client : ${clientSiret}`);
+    }
+    console.log(`🔧 Maintenance : ${maintenancePrice} ${isPriceTTC ? 'TTC' : 'HT'}${isOneTimePayment ? ' (paiement unique)' : '/mois'} pour ${contractDuration} mois`);
+    console.log(`📋 Prestations personnalisées : ${customFeatures.length} prestation(s)`);
     if (websiteUrl) {
       console.log(`🌐 Site concerné : ${websiteUrl}`);
     }
@@ -1402,6 +1765,7 @@ async function generateInteractiveContract() {
     // Informations du client
     console.log('\n👤 Informations du client :');
     const clientName = await askQuestion('Nom du client (ou raison sociale) : ');
+    const clientSiret = await askQuestion('SIRET du client (optionnel) : ');
     const clientEmail = await askQuestion('Email du client : ');
     
     console.log('\n📍 Adresse du client (appuyez sur Entrée après chaque ligne, ligne vide pour terminer) :');
@@ -1429,6 +1793,7 @@ async function generateInteractiveContract() {
     const contractData = {
       plan: selectedPlan,
       clientName,
+      clientSiret: clientSiret.trim() || null,
       clientEmail,
       clientAddress,
       contractDate: formatDate(new Date()),
@@ -1454,6 +1819,9 @@ async function generateInteractiveContract() {
     console.log(`📄 Fichier : ${filepath}`);
     console.log(`📋 N° de contrat : ${contractData.contractNumber}`);
     console.log(`👤 Client : ${clientName}`);
+    if (clientSiret.trim()) {
+      console.log(`🏢 SIRET client : ${clientSiret}`);
+    }
     console.log(`💼 Plan : ${selectedPlan.name}`);
     if (discount > 0) {
       console.log(`💰 Remise appliquée : ${discount}%`);
