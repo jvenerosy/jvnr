@@ -55,7 +55,7 @@
       ],
       "popular": false,
       "buttonText": "Choisir cette formule",
-      "buttonStyle": "bg-black text-white hover:bg-gray-800",
+      "buttonStyle": "bg-white text-black border-2 border-black hover:bg-gray-100",
       "type": "eshop"
     },
     {

@@ -14,7 +14,6 @@ const Hero = () => {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center bg-white dark:bg-gray-900"
-      role="banner"
       aria-labelledby="hero-title"
     >
       <div className="max-w-4xl mx-auto px-6 text-center">

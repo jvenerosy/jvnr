@@ -67,45 +67,41 @@ const Header = () => {
           </button>
 
           {/* Navigation Desktop */}
-          <ul className="hidden md:flex items-center space-x-8" role="menubar">
-            <li role="none">
+          <ul className="hidden md:flex items-center space-x-8">
+            <li>
               <button
                 onClick={() => scrollToSection('about')}
                 className={getNavItemClasses('about')}
-                role="menuitem"
                 aria-label="Aller à la section À propos"
                 type="button"
               >
                 À propos
               </button>
             </li>
-            <li role="none">
+            <li>
               <button
                 onClick={() => scrollToSection('services')}
                 className={getNavItemClasses('services')}
-                role="menuitem"
                 aria-label="Aller à la section Services"
                 type="button"
               >
                 Services
               </button>
             </li>
-            <li role="none">
+            <li>
               <button
                 onClick={() => scrollToSection('pricing')}
                 className={getNavItemClasses('pricing')}
-                role="menuitem"
                 aria-label="Aller à la section Tarifs"
                 type="button"
               >
                 Tarifs
               </button>
             </li>
-            <li role="none">
+            <li>
               <button
                 onClick={() => scrollToSection('contact')}
                 className={getNavItemClasses('contact')}
-                role="menuitem"
                 aria-label="Aller à la section Contact"
                 type="button"
               >
@@ -155,11 +151,10 @@ const Header = () => {
               : 'opacity-0 invisible transform -translate-y-4'
           }`}
         >
-          <nav role="navigation" aria-label="Menu mobile">
+          <nav aria-label="Menu mobile">
             <button
               onClick={() => scrollToSection('about')}
               className={getMobileNavItemClasses('about')}
-              role="menuitem"
               aria-label="Aller à la section À propos"
               type="button"
             >
@@ -168,7 +163,6 @@ const Header = () => {
             <button
               onClick={() => scrollToSection('services')}
               className={getMobileNavItemClasses('services')}
-              role="menuitem"
               aria-label="Aller à la section Services"
               type="button"
             >
@@ -177,7 +171,6 @@ const Header = () => {
             <button
               onClick={() => scrollToSection('pricing')}
               className={getMobileNavItemClasses('pricing')}
-              role="menuitem"
               aria-label="Aller à la section Tarifs"
               type="button"
             >
@@ -186,7 +179,6 @@ const Header = () => {
             <button
               onClick={() => scrollToSection('contact')}
               className={getMobileNavItemClasses('contact')}
-              role="menuitem"
               aria-label="Aller à la section Contact"
               type="button"
             >
