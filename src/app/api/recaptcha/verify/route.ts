@@ -14,13 +14,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { token } = body;
 
-    // Debug: log du token reçu
-    console.log('🔍 [reCAPTCHA] Token reçu:', {
-      tokenLength: token?.length,
-      tokenStart: token?.substring(0, 30),
-      tokenEnd: token?.substring(token?.length - 30)
-    });
-
     if (!token) {
       return NextResponse.json(
         { error: 'Token reCAPTCHA manquant' },
@@ -30,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
     if (!secretKey) {
-      console.error('❌ [reCAPTCHA] Clé secrète manquante');
+      console.error('[reCAPTCHA] Clé secrète manquante');
       return NextResponse.json(
         { error: 'Configuration reCAPTCHA manquante côté serveur' },
         { status: 500 }
@@ -53,18 +46,10 @@ export async function POST(request: NextRequest) {
 
     const verifyData: RecaptchaResponse = await verifyResponse.json();
 
-    console.log('🔍 [reCAPTCHA] Réponse de Google:', {
-      success: verifyData.success,
-      score: verifyData.score,
-      action: verifyData.action,
-      hostname: verifyData.hostname,
-      errors: verifyData['error-codes']
-    });
-
     if (!verifyData.success) {
-      console.log('❌ [reCAPTCHA] Échec de la vérification:', verifyData['error-codes']);
+      console.error('[reCAPTCHA] Échec de la vérification:', verifyData['error-codes']);
       return NextResponse.json(
-        { 
+        {
           error: 'Échec de la vérification reCAPTCHA',
           valid: false,
           details: verifyData['error-codes']
@@ -76,9 +61,8 @@ export async function POST(request: NextRequest) {
     // Pour reCAPTCHA v3, vérifier le score (optionnel)
     const minScore = 0.5; // Score minimum acceptable (0.0 = bot, 1.0 = humain)
     if (verifyData.score !== undefined && verifyData.score < minScore) {
-      console.log(`⚠️ [reCAPTCHA] Score trop bas: ${verifyData.score} < ${minScore}`);
       return NextResponse.json(
-        { 
+        {
           error: 'Score reCAPTCHA insuffisant',
           valid: false,
           score: verifyData.score
@@ -87,7 +71,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('✅ [reCAPTCHA] Vérification réussie');
     return NextResponse.json({
       success: true,
       valid: true,
@@ -96,7 +79,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('❌ [reCAPTCHA] Erreur lors de la vérification:', error);
+    console.error('[reCAPTCHA] Erreur lors de la vérification:', error);
     return NextResponse.json(
       { error: 'Erreur interne lors de la vérification reCAPTCHA' },
       { status: 500 }
@@ -109,7 +92,7 @@ function getClientIP(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const remoteAddr = request.headers.get('remote-addr');
-  
+
   if (forwarded) {
     return forwarded.split(',')[0].trim();
   }
@@ -119,6 +102,6 @@ function getClientIP(request: NextRequest): string {
   if (remoteAddr) {
     return remoteAddr;
   }
-  
+
   return 'unknown';
 }
