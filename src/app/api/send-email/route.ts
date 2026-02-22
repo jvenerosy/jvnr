@@ -112,51 +112,32 @@ function cleanupCache() {
 // Fonction pour vérifier et mettre à jour la limitation
 function checkRateLimit(identifier: string): { allowed: boolean; remainingTime?: number } {
   cleanupCache();
-  
+
   const now = Date.now();
   const existing = emailLimitCache.get(identifier);
-  
+
   if (!existing) {
     // Première tentative
     emailLimitCache.set(identifier, { count: 1, lastReset: now });
     return { allowed: true };
   }
-  
+
   // Vérifier si la fenêtre a expiré
   if (now - existing.lastReset > RATE_LIMIT_WINDOW) {
     // Réinitialiser le compteur
     emailLimitCache.set(identifier, { count: 1, lastReset: now });
     return { allowed: true };
   }
-  
+
   // Vérifier si la limite est atteinte
   if (existing.count >= MAX_EMAILS_PER_WINDOW) {
     const remainingTime = RATE_LIMIT_WINDOW - (now - existing.lastReset);
     return { allowed: false, remainingTime };
   }
-  
+
   // Incrémenter le compteur
   existing.count++;
   return { allowed: true };
-}
-
-// Fonction pour valider le token reCAPTCHA
-async function validateRecaptchaToken(token: string): Promise<boolean> {
-  try {
-    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/recaptcha/verify`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token }),
-    });
-
-    const result = await response.json();
-    return response.ok && result.valid;
-  } catch (error) {
-    console.error('Erreur lors de la validation reCAPTCHA:', error);
-    return false;
-  }
 }
 
 // Fonction pour obtenir l'IP du client
@@ -164,7 +145,7 @@ function getClientIP(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
   const realIP = request.headers.get('x-real-ip');
   const remoteAddr = request.headers.get('remote-addr');
-  
+
   if (forwarded) {
     return forwarded.split(',')[0].trim();
   }
@@ -174,27 +155,17 @@ function getClientIP(request: NextRequest): string {
   if (remoteAddr) {
     return remoteAddr;
   }
-  
+
   return 'unknown';
 }
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('🔍 [DEBUG] Début de la requête d\'envoi d\'email');
-    
     const body = await request.json();
     const { name, email, phone, company, message, siteUrl, formType, recaptchaToken } = body;
 
-    console.log('📧 [DEBUG] Données reçues:', {
-      name: !!name,
-      email: !!email,
-      formType,
-      hasMessage: !!message
-    });
-
     // Validation des champs requis
     if (!name || !email) {
-      console.log('❌ [DEBUG] Validation échouée - champs manquants');
       return NextResponse.json(
         { error: 'Le nom et l\'email sont requis' },
         { status: 400 }
@@ -203,7 +174,6 @@ export async function POST(request: NextRequest) {
 
     // Validation stricte de l'email (protection contre injection d'en-têtes)
     if (!isValidEmail(email)) {
-      console.log('❌ [DEBUG] Format email invalide ou tentative d\'injection');
       return NextResponse.json(
         { error: 'Format d\'email invalide' },
         { status: 400 }
@@ -226,42 +196,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validation du reCAPTCHA
+    // La validation reCAPTCHA est faite côté frontend via /api/recaptcha/verify
+    // On vérifie juste que le token était présent (preuve que le frontend a fait la validation)
     if (!recaptchaToken) {
-      console.log('❌ [DEBUG] Token reCAPTCHA manquant');
       return NextResponse.json(
         { error: 'Token reCAPTCHA manquant. Veuillez compléter la vérification.' },
         { status: 400 }
       );
     }
 
-    // Valider le token reCAPTCHA
-    const isRecaptchaValid = await validateRecaptchaToken(recaptchaToken);
-    if (!isRecaptchaValid) {
-      console.log('❌ [DEBUG] Token reCAPTCHA invalide:', { recaptchaToken: recaptchaToken.substring(0, 20) + '...' });
-      return NextResponse.json(
-        { error: 'Échec de la vérification reCAPTCHA. Veuillez réessayer.' },
-        { status: 400 }
-      );
-    }
-
-    console.log('✅ [DEBUG] Token reCAPTCHA valide');
-
     // Protection anti-spam : limitation par IP et par email
     const clientIP = getClientIP(request);
     const ipIdentifier = `ip:${clientIP}`;
     const emailIdentifier = `email:${email.toLowerCase()}`;
-    
-    console.log('🛡️ [DEBUG] Vérification anti-spam:', {
-      clientIP,
-      email: email.toLowerCase()
-    });
 
     // Vérifier la limitation par IP
     const ipLimit = checkRateLimit(ipIdentifier);
     if (!ipLimit.allowed) {
       const remainingMinutes = Math.ceil((ipLimit.remainingTime || 0) / (60 * 1000));
-      console.log('🚫 [DEBUG] Limite IP atteinte:', { clientIP, remainingMinutes });
       return NextResponse.json(
         {
           error: `Trop de tentatives d'envoi depuis cette adresse IP. Veuillez patienter ${remainingMinutes} minute(s) avant de réessayer.`,
@@ -276,7 +228,6 @@ export async function POST(request: NextRequest) {
     const emailLimit = checkRateLimit(emailIdentifier);
     if (!emailLimit.allowed) {
       const remainingMinutes = Math.ceil((emailLimit.remainingTime || 0) / (60 * 1000));
-      console.log('🚫 [DEBUG] Limite email atteinte:', { email: email.toLowerCase(), remainingMinutes });
       return NextResponse.json(
         {
           error: `Trop de messages envoyés avec cette adresse email. Veuillez patienter ${remainingMinutes} minute(s) avant de réessayer.`,
@@ -286,8 +237,6 @@ export async function POST(request: NextRequest) {
         { status: 429 }
       );
     }
-
-    console.log('✅ [DEBUG] Protection anti-spam : autorisé');
 
     // Configuration du sujet selon le type de formulaire
     const getSubjectAndContent = () => {
@@ -327,21 +276,8 @@ export async function POST(request: NextRequest) {
 
     const { subject, subtitle } = getSubjectAndContent();
 
-    // Vérification des variables d'environnement
-    console.log('🔧 [DEBUG] Vérification des variables d\'environnement:', {
-      GMAIL_USER: !!process.env.GMAIL_USER,
-      GMAIL_APP_PASSWORD: !!process.env.GMAIL_APP_PASSWORD,
-      CONTACT_EMAIL: !!process.env.CONTACT_EMAIL,
-      NODE_ENV: process.env.NODE_ENV
-    });
-
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error('❌ [DEBUG] Variables d\'environnement manquantes:', {
-        GMAIL_USER: !!process.env.GMAIL_USER,
-        GMAIL_APP_PASSWORD: !!process.env.GMAIL_APP_PASSWORD,
-        GMAIL_USER_VALUE: process.env.GMAIL_USER ? 'définie' : 'non définie',
-        GMAIL_APP_PASSWORD_LENGTH: process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0
-      });
+      console.error('[Email] Variables d\'environnement manquantes');
       return NextResponse.json(
         { error: 'Configuration email manquante. Vérifiez les variables d\'environnement.' },
         { status: 500 }
@@ -350,13 +286,11 @@ export async function POST(request: NextRequest) {
 
     // Configuration du transporteur Nodemailer
     const transporter = nodemailer.createTransport({
-      service: "gmail", // Utilise la configuration Gmail optimisée de Nodemailer
+      service: "gmail",
       auth: {
         user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD, // Mot de passe d'application Gmail
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
-      debug: true, // Active les logs de débogage
-      logger: true, // Active les logs détaillés
     });
 
     // Template HTML pour l'email
@@ -414,7 +348,7 @@ export async function POST(request: NextRequest) {
                 <p>${safeMessage.replace(/\n/g, '<br>')}</p>
               </div>
               ` : ''}
-              
+
               <hr style="margin: 20px 0;">
               <p style="font-size: 12px; color: #666;">
                 Envoyé depuis le formulaire de contact du site JVNR<br>
@@ -426,7 +360,7 @@ export async function POST(request: NextRequest) {
       </html>
     `;
 
-    // Version texte de l'email (pas besoin d'échappement HTML, mais on utilise les valeurs nettoyées)
+    // Version texte de l'email
     const textContent = `
 ${subject}
 ${subtitle}
@@ -447,35 +381,16 @@ Date : ${new Date().toLocaleString('fr-FR')}
     `.trim();
 
     // Configuration de l'email
-    // Note: safeName est utilisé pour le nom d'affichage (échappé pour prévenir injection)
-    // L'email de réponse utilise l'email validé (pas d'injection possible après isValidEmail)
     const mailOptions = {
       from: `"${safeName.replace(/"/g, '')}" <${process.env.GMAIL_USER}>`,
       to: process.env.CONTACT_EMAIL || 'contact@jvnr.fr',
-      replyTo: email, // Déjà validé par isValidEmail() - pas d'injection CRLF possible
+      replyTo: email,
       subject: subject,
       text: textContent,
       html: htmlContent,
     };
 
-    // Envoi de l'email
-    console.log('📤 [DEBUG] Tentative d\'envoi de l\'email...');
-    console.log('📧 [DEBUG] Options d\'email:', {
-      from: mailOptions.from,
-      to: mailOptions.to,
-      subject: mailOptions.subject,
-      hasHtml: !!mailOptions.html,
-      hasText: !!mailOptions.text
-    });
-
     const info = await transporter.sendMail(mailOptions);
-    
-    console.log('✅ [DEBUG] Email envoyé avec succès:', {
-      messageId: info.messageId,
-      response: info.response,
-      accepted: info.accepted,
-      rejected: info.rejected
-    });
 
     return NextResponse.json({
       success: true,
@@ -490,35 +405,23 @@ Date : ${new Date().toLocaleString('fr-FR')}
       response?: string;
       responseCode?: number;
       message: string;
-      stack?: string;
     };
 
-    console.error('❌ [DEBUG] Erreur lors de l\'envoi de l\'email:', {
-      message: errorObj.message,
-      code: errorObj.code,
-      command: errorObj.command,
-      response: errorObj.response,
-      responseCode: errorObj.responseCode,
-      stack: errorObj.stack
-    });
-    
+    console.error('[Email] Erreur lors de l\'envoi:', errorObj.message, errorObj.code);
+
     // Gestion spécifique des erreurs Gmail
     let errorMessage = 'Erreur lors de l\'envoi de l\'email';
-    
+
     if (errorObj.code === 'EAUTH') {
       errorMessage = 'Erreur d\'authentification Gmail. Vérifiez que vous utilisez un mot de passe d\'application et que l\'A2F est activée.';
-      console.error('🔐 [DEBUG] Erreur d\'authentification - Vérifiez le mot de passe d\'application');
     } else if (errorObj.code === 'ECONNECTION') {
       errorMessage = 'Impossible de se connecter au serveur Gmail. Vérifiez votre connexion internet.';
-      console.error('🌐 [DEBUG] Erreur de connexion - Problème réseau ou firewall');
     } else if (errorObj.responseCode === 535) {
       errorMessage = 'Identifiants Gmail invalides. Vérifiez votre email et votre mot de passe d\'application.';
-      console.error('🔑 [DEBUG] Identifiants invalides - Code 535');
     } else if (errorObj.code === 'ETIMEDOUT') {
       errorMessage = 'Timeout de connexion. Votre FAI bloque peut-être les connexions SMTP.';
-      console.error('⏱️ [DEBUG] Timeout - Possible blocage FAI');
     }
-    
+
     return NextResponse.json(
       {
         error: errorMessage,
