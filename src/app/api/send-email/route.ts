@@ -6,6 +6,74 @@ import pricingData from '@/data/pricing.json';
 // FONCTIONS DE SÉCURITÉ - Protection contre XSS et injections
 // ============================================================================
 
+interface RecaptchaResponse {
+  success: boolean;
+  challenge_ts?: string;
+  hostname?: string;
+  score?: number;
+  action?: string;
+  'error-codes'?: string[];
+}
+
+/**
+ * Valide un token reCAPTCHA v3 auprès de Google
+ * @param token Le token reCAPTCHA à valider
+ * @param remoteip L'IP du client
+ * @returns Promise<{valid: boolean, score?: number, error?: string}>
+ */
+async function validateRecaptchaToken(
+  token: string,
+  remoteip: string
+): Promise<{ valid: boolean; score?: number; error?: string }> {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+
+  if (!secretKey) {
+    console.error('[reCAPTCHA] Clé secrète manquante');
+    return { valid: false, error: 'Configuration reCAPTCHA manquante côté serveur' };
+  }
+
+  try {
+    const verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    const verifyResponse = await fetch(verifyUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: token,
+        remoteip: remoteip,
+      }),
+    });
+
+    const verifyData: RecaptchaResponse = await verifyResponse.json();
+
+    if (!verifyData.success) {
+      console.error('[reCAPTCHA] Échec de la vérification:', verifyData['error-codes']);
+      return {
+        valid: false,
+        error: 'Échec de la vérification reCAPTCHA',
+      };
+    }
+
+    // Pour reCAPTCHA v3, vérifier le score
+    const minScore = 0.5; // Score minimum acceptable (0.0 = bot, 1.0 = humain)
+    if (verifyData.score !== undefined && verifyData.score < minScore) {
+      console.error('[reCAPTCHA] Score insuffisant:', verifyData.score);
+      return {
+        valid: false,
+        score: verifyData.score,
+        error: 'Score reCAPTCHA insuffisant. Veuillez réessayer.',
+      };
+    }
+
+    return { valid: true, score: verifyData.score };
+  } catch (error) {
+    console.error('[reCAPTCHA] Erreur lors de la vérification:', error);
+    return { valid: false, error: 'Erreur interne lors de la vérification reCAPTCHA' };
+  }
+}
+
 /**
  * Échappe les caractères HTML pour prévenir les attaques XSS
  * Doit être utilisé pour TOUS les inputs utilisateur avant insertion dans du HTML
@@ -196,8 +264,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // La validation reCAPTCHA est faite côté frontend via /api/recaptcha/verify
-    // On vérifie juste que le token était présent (preuve que le frontend a fait la validation)
+    // VALIDATION RECAPTCHA - CRITIQUE POUR LA SÉCURITÉ
+    // Cette validation DOIT être faite côté serveur pour éviter les bypasses
     if (!recaptchaToken) {
       return NextResponse.json(
         { error: 'Token reCAPTCHA manquant. Veuillez compléter la vérification.' },
@@ -207,6 +275,19 @@ export async function POST(request: NextRequest) {
 
     // Protection anti-spam : limitation par IP et par email
     const clientIP = getClientIP(request);
+
+    // Valider le token reCAPTCHA auprès de Google
+    const recaptchaValidation = await validateRecaptchaToken(recaptchaToken, clientIP);
+    if (!recaptchaValidation.valid) {
+      console.error('[Email] Validation reCAPTCHA échouée:', recaptchaValidation.error);
+      return NextResponse.json(
+        {
+          error: recaptchaValidation.error || 'Échec de la vérification reCAPTCHA. Veuillez réessayer.',
+          recaptchaScore: recaptchaValidation.score
+        },
+        { status: 400 }
+      );
+    }
     const ipIdentifier = `ip:${clientIP}`;
     const emailIdentifier = `email:${email.toLowerCase()}`;
 
