@@ -1,0 +1,55 @@
+# Dependencies
+node_modules
+
+# Build output
+.next
+out
+dist
+
+# Git
+.git
+.gitignore
+
+# Environment files (seront injectés via Dokploy)
+.env
+.env.*
+!.env.example
+
+# IDE et éditeurs
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+tests
+test-results
+coverage
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+vitest.config.ts
+playwright.config.ts
+
+# Documentation
+README.md
+CHANGELOG.md
+*.md
+!RECAPTCHA_SETUP.md
+
+# Fichiers de développement
+.claude
+.kilocode
+contracts
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript cache
+*.tsbuildinfo
