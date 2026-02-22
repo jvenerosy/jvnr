@@ -94,35 +94,19 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setIsSubmitting(true);
     setErrorMessage('');
 
     try {
       // Exécuter reCAPTCHA v3 avant l'envoi
       const token = await recaptchaRef.current?.execute();
-      
+
       if (!token) {
         throw new Error('Échec de la vérification reCAPTCHA. Veuillez réessayer.');
       }
 
-      // Vérifier le token reCAPTCHA côté serveur
-      const recaptchaResponse = await fetch('/api/recaptcha/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token: token
-        }),
-      });
-
-      const recaptchaResult = await recaptchaResponse.json();
-      
-      if (!recaptchaResponse.ok || !recaptchaResult.valid) {
-        throw new Error(recaptchaResult.error || 'Échec de la vérification reCAPTCHA');
-      }
-      // Envoi via l'API
+      // Envoi via l'API (la validation reCAPTCHA est faite côté serveur)
       const response = await fetch('/api/send-email/', {
         method: 'POST',
         headers: {

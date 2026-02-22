@@ -29,6 +29,7 @@ describe('POST /api/send-email', () => {
     process.env.GMAIL_APP_PASSWORD = 'app-password';
     process.env.CONTACT_EMAIL = 'contact@jvnr.fr';
     process.env.NEXTAUTH_URL = 'http://localhost:3000';
+    process.env.RECAPTCHA_SECRET_KEY = 'test-secret-key';
 
     mocks.sendMailMock.mockReset();
     mocks.createTransportMock.mockClear();
@@ -39,11 +40,11 @@ describe('POST /api/send-email', () => {
       rejected: [],
     });
 
-    // Mock fetch pour la validation reCAPTCHA
+    // Mock fetch pour la validation reCAPTCHA (réponse de l'API Google)
     mockFetch.mockReset();
     mockFetch.mockResolvedValue({
       ok: true,
-      json: async () => ({ valid: true, score: 0.9 }),
+      json: async () => ({ success: true, score: 0.9 }),
     });
     global.fetch = mockFetch;
   });
