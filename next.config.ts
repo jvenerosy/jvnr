@@ -29,8 +29,8 @@ const nextConfig: NextConfig = {
   
   // Optimisations du compilateur
   compiler: {
-    // Supprimer les console.log en production
-    removeConsole: process.env.NODE_ENV === 'production',
+    // Supprimer les console.log en production (désactivé temporairement pour debug)
+    // removeConsole: process.env.NODE_ENV === 'production',
   },
   
   // Headers de sécurité et performance
