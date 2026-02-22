@@ -14,6 +14,13 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { token } = body;
 
+    // Debug: log du token reçu
+    console.log('🔍 [reCAPTCHA] Token reçu:', {
+      tokenLength: token?.length,
+      tokenStart: token?.substring(0, 30),
+      tokenEnd: token?.substring(token?.length - 30)
+    });
+
     if (!token) {
       return NextResponse.json(
         { error: 'Token reCAPTCHA manquant' },
