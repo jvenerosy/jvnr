@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { X, Send } from 'lucide-react';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import pricingData from '@/data/pricing.json';
+import ReCaptchaV3, { ReCaptchaV3Ref } from './ReCaptchaV3';
+import { useRef } from 'react';
 
 interface ContactFormProps {
   isOpen: boolean;
@@ -28,6 +30,10 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'rate-limited'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [remainingTime, setRemainingTime] = useState<number>(0);
+  
+  // État du reCAPTCHA v3
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCaptchaV3Ref>(null);
 
   const getFormConfig = () => {
     const onepagePlan = pricingData.plans.find(plan => plan.type === 'onepage');
@@ -88,10 +94,34 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     setIsSubmitting(true);
     setErrorMessage('');
 
     try {
+      // Exécuter reCAPTCHA v3 avant l'envoi
+      const token = await recaptchaRef.current?.execute();
+      
+      if (!token) {
+        throw new Error('Échec de la vérification reCAPTCHA. Veuillez réessayer.');
+      }
+
+      // Vérifier le token reCAPTCHA côté serveur
+      const recaptchaResponse = await fetch('/api/recaptcha/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: token
+        }),
+      });
+
+      const recaptchaResult = await recaptchaResponse.json();
+      
+      if (!recaptchaResponse.ok || !recaptchaResult.valid) {
+        throw new Error(recaptchaResult.error || 'Échec de la vérification reCAPTCHA');
+      }
       // Envoi via l'API
       const response = await fetch('/api/send-email/', {
         method: 'POST',
@@ -105,7 +135,8 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
           company: formData.company,
           message: formData.message || config.defaultMessage,
           siteUrl: formData.siteUrl,
-          formType: formType
+          formType: formType,
+          recaptchaToken: token
         }),
       });
 
@@ -124,6 +155,8 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
             message: '',
             siteUrl: ''
           });
+          // Réinitialiser le reCAPTCHA
+          setRecaptchaToken(null);
         }, 2000);
       } else if (response.status === 429 && result.rateLimited) {
         // Limitation de débit détectée
@@ -163,6 +196,11 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  // Gestionnaire pour la validation du reCAPTCHA
+  const handleRecaptchaVerify = (token: string | null) => {
+    setRecaptchaToken(token);
   };
 
   if (!isOpen) return null;
@@ -293,6 +331,14 @@ const ContactForm = ({ isOpen, onClose, formType }: ContactFormProps) => {
                 className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-700 text-black dark:text-white"
               />
             </div>
+
+            {/* reCAPTCHA v3 */}
+            <ReCaptchaV3
+              ref={recaptchaRef}
+              onVerify={handleRecaptchaVerify}
+              action="contact_form"
+              className="mb-4"
+            />
 
             {/* Submit button */}
             <div className="flex items-center justify-between pt-4">

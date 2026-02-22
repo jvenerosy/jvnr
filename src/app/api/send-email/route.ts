@@ -2,6 +2,75 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import pricingData from '@/data/pricing.json';
 
+// ============================================================================
+// FONCTIONS DE SÉCURITÉ - Protection contre XSS et injections
+// ============================================================================
+
+/**
+ * Échappe les caractères HTML pour prévenir les attaques XSS
+ * Doit être utilisé pour TOUS les inputs utilisateur avant insertion dans du HTML
+ */
+function escapeHtml(unsafe: string | null | undefined): string {
+  if (!unsafe) return '';
+  return String(unsafe)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * Valide le format d'une adresse email
+ * Empêche les injections d'en-têtes email (CRLF injection)
+ */
+function isValidEmail(email: string): boolean {
+  // Vérifie les caractères dangereux pour l'injection d'en-têtes
+  if (/[\r\n\0]/.test(email)) {
+    return false;
+  }
+  // Regex stricte pour les emails valides
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return emailRegex.test(email) && email.length <= 254;
+}
+
+/**
+ * Valide et nettoie une URL
+ * Empêche les URL javascript: et autres protocoles dangereux
+ */
+function sanitizeUrl(url: string | null | undefined): string {
+  if (!url) return '';
+  const trimmed = url.trim();
+  // Bloque les protocoles dangereux
+  const dangerousProtocols = /^(javascript|data|vbscript|file):/i;
+  if (dangerousProtocols.test(trimmed)) {
+    return '';
+  }
+  // Échappe le HTML dans l'URL
+  return escapeHtml(trimmed);
+}
+
+/**
+ * Valide et nettoie un numéro de téléphone
+ */
+function sanitizePhone(phone: string | null | undefined): string {
+  if (!phone) return '';
+  // Garde uniquement les caractères valides pour un téléphone
+  const cleaned = phone.replace(/[^\d+\-.()\s]/g, '');
+  return escapeHtml(cleaned.slice(0, 20));
+}
+
+/**
+ * Nettoie un texte général (nom, entreprise, message)
+ * Limite la longueur et échappe le HTML
+ */
+function sanitizeText(text: string | null | undefined, maxLength: number = 1000): string {
+  if (!text) return '';
+  return escapeHtml(String(text).slice(0, maxLength));
+}
+
+// ============================================================================
+
 // Cache en mémoire pour la limitation d'envoi (en production, utilisez Redis)
 const emailLimitCache = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes en millisecondes
@@ -71,6 +140,25 @@ function checkRateLimit(identifier: string): { allowed: boolean; remainingTime?:
   return { allowed: true };
 }
 
+// Fonction pour valider le token reCAPTCHA
+async function validateRecaptchaToken(token: string): Promise<boolean> {
+  try {
+    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/recaptcha/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    const result = await response.json();
+    return response.ok && result.valid;
+  } catch (error) {
+    console.error('Erreur lors de la validation reCAPTCHA:', error);
+    return false;
+  }
+}
+
 // Fonction pour obtenir l'IP du client
 function getClientIP(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
@@ -95,7 +183,7 @@ export async function POST(request: NextRequest) {
     console.log('🔍 [DEBUG] Début de la requête d\'envoi d\'email');
     
     const body = await request.json();
-    const { name, email, phone, company, message, siteUrl, formType } = body;
+    const { name, email, phone, company, message, siteUrl, formType, recaptchaToken } = body;
 
     console.log('📧 [DEBUG] Données reçues:', {
       name: !!name,
@@ -112,6 +200,52 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Validation stricte de l'email (protection contre injection d'en-têtes)
+    if (!isValidEmail(email)) {
+      console.log('❌ [DEBUG] Format email invalide ou tentative d\'injection');
+      return NextResponse.json(
+        { error: 'Format d\'email invalide' },
+        { status: 400 }
+      );
+    }
+
+    // Nettoyage et validation de tous les inputs
+    const safeName = sanitizeText(name, 100);
+    const safeEmail = escapeHtml(email); // Déjà validé, juste échapper pour HTML
+    const safePhone = sanitizePhone(phone);
+    const safeCompany = sanitizeText(company, 100);
+    const safeMessage = sanitizeText(message, 5000);
+    const safeSiteUrl = sanitizeUrl(siteUrl);
+
+    // Vérifier que les champs requis ne sont pas vides après nettoyage
+    if (!safeName.trim()) {
+      return NextResponse.json(
+        { error: 'Le nom contient des caractères invalides' },
+        { status: 400 }
+      );
+    }
+
+    // Validation du reCAPTCHA
+    if (!recaptchaToken) {
+      console.log('❌ [DEBUG] Token reCAPTCHA manquant');
+      return NextResponse.json(
+        { error: 'Token reCAPTCHA manquant. Veuillez compléter la vérification.' },
+        { status: 400 }
+      );
+    }
+
+    // Valider le token reCAPTCHA
+    const isRecaptchaValid = await validateRecaptchaToken(recaptchaToken);
+    if (!isRecaptchaValid) {
+      console.log('❌ [DEBUG] Token reCAPTCHA invalide:', { recaptchaToken: recaptchaToken.substring(0, 20) + '...' });
+      return NextResponse.json(
+        { error: 'Échec de la vérification reCAPTCHA. Veuillez réessayer.' },
+        { status: 400 }
+      );
+    }
+
+    console.log('✅ [DEBUG] Token reCAPTCHA valide');
 
     // Protection anti-spam : limitation par IP et par email
     const clientIP = getClientIP(request);
@@ -254,30 +388,30 @@ export async function POST(request: NextRequest) {
             <div class="content">
               <h3>Informations du contact :</h3>
               <div class="info-row">
-                <span class="label">Nom :</span> ${name}
+                <span class="label">Nom :</span> ${safeName}
               </div>
               <div class="info-row">
-                <span class="label">Email :</span> ${email}
+                <span class="label">Email :</span> ${safeEmail}
               </div>
               <div class="info-row">
-                <span class="label">Téléphone :</span> ${phone || 'Non renseigné'}
+                <span class="label">Téléphone :</span> ${safePhone || 'Non renseigné'}
               </div>
               <div class="info-row">
-                <span class="label">Entreprise :</span> ${company || 'Non renseignée'}
+                <span class="label">Entreprise :</span> ${safeCompany || 'Non renseignée'}
               </div>
               <div class="info-row">
-                <span class="label">Offre :</span> ${planSummary.summary}
+                <span class="label">Offre :</span> ${escapeHtml(planSummary.summary)}
               </div>
-              ${siteUrl ? `
+              ${safeSiteUrl ? `
               <div class="info-row">
-                <span class="label">URL du site :</span> ${siteUrl}
+                <span class="label">URL du site :</span> ${safeSiteUrl}
               </div>
               ` : ''}
-              
-              ${message ? `
+
+              ${safeMessage ? `
               <div class="message-box">
                 <h4>Message :</h4>
-                <p>${message.replace(/\n/g, '<br>')}</p>
+                <p>${safeMessage.replace(/\n/g, '<br>')}</p>
               </div>
               ` : ''}
               
@@ -292,20 +426,20 @@ export async function POST(request: NextRequest) {
       </html>
     `;
 
-    // Version texte de l'email
+    // Version texte de l'email (pas besoin d'échappement HTML, mais on utilise les valeurs nettoyées)
     const textContent = `
 ${subject}
 ${subtitle}
 
 Informations du contact :
-- Nom : ${name}
+- Nom : ${safeName}
 - Email : ${email}
-- Téléphone : ${phone || 'Non renseigné'}
-- Entreprise : ${company || 'Non renseignée'}
- - Offre : ${planSummary.summary}
-${siteUrl ? `- URL du site : ${siteUrl}` : ''}
+- Téléphone : ${safePhone || 'Non renseigné'}
+- Entreprise : ${safeCompany || 'Non renseignée'}
+- Offre : ${planSummary.summary}
+${safeSiteUrl ? `- URL du site : ${safeSiteUrl}` : ''}
 
-${message ? `Message :\n${message}` : ''}
+${safeMessage ? `Message :\n${safeMessage}` : ''}
 
 ---
 Envoyé depuis le formulaire de contact du site JVNR
@@ -313,10 +447,12 @@ Date : ${new Date().toLocaleString('fr-FR')}
     `.trim();
 
     // Configuration de l'email
+    // Note: safeName est utilisé pour le nom d'affichage (échappé pour prévenir injection)
+    // L'email de réponse utilise l'email validé (pas d'injection possible après isValidEmail)
     const mailOptions = {
-      from: `"${name}" <${process.env.GMAIL_USER}>`,
+      from: `"${safeName.replace(/"/g, '')}" <${process.env.GMAIL_USER}>`,
       to: process.env.CONTACT_EMAIL || 'contact@jvnr.fr',
-      replyTo: email,
+      replyTo: email, // Déjà validé par isValidEmail() - pas d'injection CRLF possible
       subject: subject,
       text: textContent,
       html: htmlContent,
