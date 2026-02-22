@@ -19,11 +19,16 @@ vi.mock('nodemailer', () => {
   };
 });
 
+// Mock global fetch pour la validation reCAPTCHA
+const originalFetch = global.fetch;
+const mockFetch = vi.fn();
+
 describe('POST /api/send-email', () => {
   beforeEach(() => {
     process.env.GMAIL_USER = 'automation@example.com';
     process.env.GMAIL_APP_PASSWORD = 'app-password';
     process.env.CONTACT_EMAIL = 'contact@jvnr.fr';
+    process.env.NEXTAUTH_URL = 'http://localhost:3000';
 
     mocks.sendMailMock.mockReset();
     mocks.createTransportMock.mockClear();
@@ -33,10 +38,19 @@ describe('POST /api/send-email', () => {
       accepted: ['contact@jvnr.fr'],
       rejected: [],
     });
+
+    // Mock fetch pour la validation reCAPTCHA
+    mockFetch.mockReset();
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({ valid: true, score: 0.9 }),
+    });
+    global.fetch = mockFetch;
   });
 
   afterEach(() => {
     vi.clearAllTimers();
+    global.fetch = originalFetch;
   });
 
   it('returns success when payload is valid', async () => {
@@ -47,6 +61,7 @@ describe('POST /api/send-email', () => {
       company: '',
       message: 'Bonjour, je souhaite un devis.',
       formType: 'onepage',
+      recaptchaToken: 'valid-test-token',
     };
 
     const request = new NextRequest('http://localhost/api/send-email/', {
