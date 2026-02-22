@@ -16,7 +16,7 @@ const About = () => {
             À propos
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Passionnés par le <strong>développement</strong> depuis plus de <strong>15 ans</strong>,
+            Passionnés par le <strong>développement</strong> depuis plus de <strong>20 ans</strong>,
             nous créons des expériences numériques exceptionnelles
           </p>
         </header>
@@ -69,7 +69,7 @@ const About = () => {
             <h3 id="stats-title" className="sr-only">Statistiques et chiffres clés</h3>
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center p-6 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="15 années d'expérience">15+</div>
+                <div className="text-3xl font-black text-black dark:text-white mb-2" aria-label="20 années d'expérience">20+</div>
                 <div className="text-sm font-medium text-gray-600 dark:text-gray-300">Années d&apos;expérience</div>
               </div>
               
