@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import Script from "next/script";
+import { headers } from "next/headers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -88,22 +89,26 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') ?? undefined;
+
   return (
     <html lang="fr">
       <head>
         <StructuredData />
-        
+
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-631LMS44B0"
           strategy="afterInteractive"
+          nonce={nonce}
         />
-        <Script id="ga-setup" strategy="afterInteractive">
+        <Script id="ga-setup" strategy="afterInteractive" nonce={nonce}>
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
