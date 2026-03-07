@@ -33,46 +33,21 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
   },
   
-  // Headers de sécurité et performance
+  // Headers de sécurité pour les assets statiques
+  // Note: Le CSP principal est géré par le middleware avec nonces dynamiques
   async headers() {
-    // CSP pour Google Analytics, reCAPTCHA et autres services Google
-    const csp = [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://www.googletagmanager.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https: blob:",
-      "font-src 'self'",
-      "frame-src https://www.google.com",
-      "connect-src 'self' https://www.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
-    ].join('; ');
-
     return [
       {
-        source: '/(.*)',
+        // Headers pour les fichiers statiques (non gérés par le middleware)
+        source: '/:path*.(ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot)',
         headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: csp,
-          },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
